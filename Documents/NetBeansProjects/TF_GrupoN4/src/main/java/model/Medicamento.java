@@ -107,6 +107,11 @@ public class Medicamento {
     public void setRequiereReceta(boolean requiereReceta) {
         this.requiereReceta = requiereReceta;
     }
+
+    @Override
+    public String toString() {
+        return "Medicamento{" + "codigo=" + codigo + ", nombre=" + nombre + ", laboratorio=" + laboratorio + ", stock=" + stock + ", precio=" + precio + ", fechaDeVencimiento=" + fechaDeVencimiento + ", categoria=" + categoria + ", requiereReceta=" + requiereReceta + '}';
+    }
     
     
 }
