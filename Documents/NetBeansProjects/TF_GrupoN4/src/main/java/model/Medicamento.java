@@ -8,5 +8,5 @@ package model;
  * @author Anderson
  */
 public class Medicamento {
-    
+    private String nombre;
 }
