@@ -6,25 +6,27 @@ package model;
 
 /**
  *
- * @author Anderson
+ * @author USUARIO
  */
-public class Proveedor {
-   private int id;
+public class Cliente {
+private int id;
 private String nombre;
+private String recetamedica;
 private int telefono;
 private String email;
 
-    public Proveedor() {
+    public Cliente() {
     }
 
-    public Proveedor(int id, String nombre) {
+    public Cliente(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
 
-    public Proveedor(int id, String nombre, int telefono, String email) {
+    public Cliente(int id, String nombre, String recetamedica, int telefono, String email) {
         this.id = id;
         this.nombre = nombre;
+        this.recetamedica = recetamedica;
         this.telefono = telefono;
         this.email = email;
     }
@@ -45,6 +47,14 @@ private String email;
         this.nombre = nombre;
     }
 
+    public String getRecetamedica() {
+        return recetamedica;
+    }
+
+    public void setRecetamedica(String recetamedica) {
+        this.recetamedica = recetamedica;
+    }
+
     public int getTelefono() {
         return telefono;
     }
@@ -63,8 +73,7 @@ private String email;
 
     @Override
     public String toString() {
-        return "Proveedor{" + "id=" + id + ", nombre=" + nombre + ", telefono=" + telefono + ", email=" + email + '}';
+        return "Cliente{" + "id=" + id + ", nombre=" + nombre + ", recetamedica=" + recetamedica + ", telefono=" + telefono + ", email=" + email + '}';
     }
-
 
 }
