@@ -11,7 +11,7 @@ package model;
 public class Cliente {
 private int id;
 private String nombre;
-private String recetamedica;
+private boolean recetamedica;
 private int telefono;
 private String email;
 
@@ -23,7 +23,7 @@ private String email;
         this.nombre = nombre;
     }
 
-    public Cliente(int id, String nombre, String recetamedica, int telefono, String email) {
+    public Cliente(int id, String nombre, boolean recetamedica, int telefono, String email) {
         this.id = id;
         this.nombre = nombre;
         this.recetamedica = recetamedica;
@@ -47,11 +47,11 @@ private String email;
         this.nombre = nombre;
     }
 
-    public String getRecetamedica() {
+    public boolean getRecetamedica() {
         return recetamedica;
     }
 
-    public void setRecetamedica(String recetamedica) {
+     public void setRecetamedica(boolean recetamedica) {
         this.recetamedica = recetamedica;
     }
 
@@ -75,5 +75,7 @@ private String email;
     public String toString() {
         return "Cliente{" + "id=" + id + ", nombre=" + nombre + ", recetamedica=" + recetamedica + ", telefono=" + telefono + ", email=" + email + '}';
     }
+
+ 
 
 }
