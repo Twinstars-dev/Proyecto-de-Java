@@ -9,7 +9,7 @@ package model;
  * @author Anderson
  */
 public class Proveedor {
-   private int id;
+private int id;
 private String nombre;
 private int telefono;
 private String email;
