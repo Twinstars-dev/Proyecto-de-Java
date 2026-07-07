@@ -47,11 +47,11 @@ private String email;
         this.nombre = nombre;
     }
 
-    public boolean getRecetamedica() {
+    public boolean isRecetamedica() {
         return recetamedica;
     }
 
-     public void setRecetamedica(boolean recetamedica) {
+    public void setRecetamedica(boolean recetamedica) {
         this.recetamedica = recetamedica;
     }
 
@@ -76,6 +76,5 @@ private String email;
         return "Cliente{" + "id=" + id + ", nombre=" + nombre + ", recetamedica=" + recetamedica + ", telefono=" + telefono + ", email=" + email + '}';
     }
 
- 
 
 }

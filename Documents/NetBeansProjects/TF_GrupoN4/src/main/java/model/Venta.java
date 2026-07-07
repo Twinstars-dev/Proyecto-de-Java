@@ -79,6 +79,8 @@ public class Venta {
     public String toString() {
         return "Venta{" + "id=" + id + ", fechavendida=" + fechavendida + ", nombredelmedicamento=" + nombredelmedicamento + ", cantidadeproductos=" + cantidadeproductos + ", preciodeventa=" + preciodeventa + '}';
     }
-
+public double Costotal(){
+    return cantidadeproductos*preciodeventa;
+}
    
 }
