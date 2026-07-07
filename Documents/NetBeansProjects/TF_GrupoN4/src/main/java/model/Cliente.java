@@ -9,11 +9,11 @@ package model;
  * @author USUARIO
  */
 public class Cliente {
-private int id;
-private String nombre;
-private boolean recetamedica;
-private int telefono;
-private String email;
+    private int id;
+    private String nombre;
+    private boolean recetamedica;
+    private int telefono;
+    private String email;
 
     public Cliente() {
     }
