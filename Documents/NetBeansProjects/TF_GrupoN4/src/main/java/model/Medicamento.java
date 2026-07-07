@@ -113,5 +113,11 @@ public class Medicamento {
         return "Medicamento{" + "codigo=" + codigo + ", nombre=" + nombre + ", laboratorio=" + laboratorio + ", stock=" + stock + ", precio=" + precio + ", fechaDeVencimiento=" + fechaDeVencimiento + ", categoria=" + categoria + ", requiereReceta=" + requiereReceta + '}';
     }
     
-    
+    @Override
+    public String toString() {
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return "Código: " + codigo + " | Nombre: " + nombre + 
+               " | Stock: " + stock + " | Precio: S/" + precio + 
+               " | Vence: " + fechaDeVencimiento.format(fmt);
+    }
 }
