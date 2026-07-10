@@ -23,7 +23,7 @@ private int contandor=0;
 }
 
 //
- public void RegistarProveedor(Proveedor p){
+ public void registarProveedor(Proveedor p){
     if(contandor<provedores.length){
        provedores[contandor] = p;
        contandor++;
@@ -32,7 +32,7 @@ private int contandor=0;
     }   
  }
 //
- public void BuscarProveedor(int codigo){
+ public void buscarProveedor(int codigo){
 //
     for(int i=0;i<contandor;i++){
 //    
@@ -41,6 +41,7 @@ private int contandor=0;
         System.out.println("Nombre: "+ provedores[i].getNombre());
         System.out.println("Email: "+ provedores[i].getEmail());
         System.out.println("Número de teléfono: "+ provedores[i].getTelefono());
+        System.out.println("Yipo de medicamento: "+ provedores[i].getTipodemedicamento());
         return;
     }
      
@@ -48,16 +49,18 @@ private int contandor=0;
      System.out.println("Proveedor no encontrado");
 }
 //
- public void ListarProveedor(){
-//    
+ public void listarProveedor(){
+//  
+    StringBuilder sb = new StringBuilder();
     for(int i=0;i<contandor;i++){
-//
-    if(provedores[i]!=null){
-      System.out.println(provedores[i].toString());
-    }  
+        sb.append("Mediacmento N°: ").append(provedores[i].getId());
+        sb.append("Nombre del medicamento: ").append(provedores[i].getNombre());
+        sb.append("Nombre del medicamento: ").append(provedores[i].getTelefono());
+        sb.append("Nombre del medicamento: ").append(provedores[i].getEmail());
   }    
 }
- public void ActualizarProveedor(String NombreBuscar, int NuevoTeléfono, String NuevoEmail){
+
+ public void actualizarProveedor(String NombreBuscar, int NuevoTeléfono, String NuevoEmail){
  boolean encontrado = false;
     for(int i=0;i<contandor;i++){
 //
@@ -73,7 +76,7 @@ private int contandor=0;
     }
    }
 //
- public void EliminarProveedor(int CodigoBuscar){
+ public void eliminarProveedor(int CodigoBuscar){
  boolean encontrado = false;
     for(int i=0;i<contandor;i++){
     if(provedores[i] != null && provedores[i].getId()==CodigoBuscar){
@@ -93,7 +96,7 @@ private int contandor=0;
     System.out.println("Error: El Proveedor "+CodigoBuscar+" no existe");
     } 
  }
- public int CantidaddeProveedorRegistrados(){
+ public int cantidaddeProveedorRegistrados(){
    return contandor;
  }
 
