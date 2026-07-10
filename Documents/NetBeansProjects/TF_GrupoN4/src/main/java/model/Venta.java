@@ -3,11 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
-
 import java.time.LocalDate;
-
-
-
 /**
  *
  * @author Anderson
@@ -16,25 +12,25 @@ import java.time.LocalDate;
 public class Venta {
 // Atributos de    
     private int id;
-    private LocalDate fechavendida;
-    private String nombredelmedicamento;
-    private int cantidadeproductos;
-    private double preciodeventa;
+    private LocalDate fechaVendida;
+    private String nombreDelMedicamento;
+    private int cantidadDeProductos;
+    private double precioDeVenta;
 
     public Venta() {
     }
 
-    public Venta(int id, LocalDate fechavendida) {
+    public Venta(int id, LocalDate fechaVendida) {
         this.id = id;
-        this.fechavendida = fechavendida;
+        this.fechaVendida = fechaVendida;
     }
 
-    public Venta(int id, LocalDate fechavendida, String nombredelmedicamento, int cantidadeproductos, double preciodeventa) {
+    public Venta(int id, LocalDate fechaVendida, String nombreDelMedicamento, int cantidadDeProductos, double precioDeVenta) {
         this.id = id;
-        this.fechavendida = fechavendida;
-        this.nombredelmedicamento = nombredelmedicamento;
-        this.cantidadeproductos = cantidadeproductos;
-        this.preciodeventa = preciodeventa;
+        this.fechaVendida = fechaVendida;
+        this.nombreDelMedicamento = nombreDelMedicamento;
+        this.cantidadDeProductos = cantidadDeProductos;
+        this.precioDeVenta = precioDeVenta;
     }
 
     public int getId() {
@@ -45,44 +41,41 @@ public class Venta {
         this.id = id;
     }
 
-    public LocalDate getFechavendida() {
-        return fechavendida;
+    public LocalDate getFechaVendida() {
+        return fechaVendida;
     }
 
-    public void setFechavendida(LocalDate fechavendida) {
-        this.fechavendida = fechavendida;
+    public void setFechaVendida(LocalDate fechaVendida) {
+        this.fechaVendida = fechaVendida;
     }
 
-    public String getNombredelmedicamento() {
-        return nombredelmedicamento;
+    public String getNombreDelMedicamento() {
+        return nombreDelMedicamento;
     }
 
-    public void setNombredelmedicamento(String nombredelmedicamento) {
-        this.nombredelmedicamento = nombredelmedicamento;
+    public void setNombreDelMedicamento(String nombreDelMedicamento) {
+        this.nombreDelMedicamento = nombreDelMedicamento;
     }
 
-    public int getCantidadeproductos() {
-        return cantidadeproductos;
+    public int getCantidadDeProductos() {
+        return cantidadDeProductos;
     }
 
-    public void setCantidadeproductos(int cantidadeproductos) {
-        this.cantidadeproductos = cantidadeproductos;
+    public void setCantidadDeProductos(int cantidadDeProductos) {
+        this.cantidadDeProductos = cantidadDeProductos;
     }
 
-    public double getPreciodeventa() {
-        return preciodeventa;
+    public double getPrecioDeVenta() {
+        return precioDeVenta;
     }
 
-    public void setPreciodeventa(double preciodeventa) {
-        this.preciodeventa = preciodeventa;
+    public void setPrecioDeVenta(double precioDeVenta) {
+        this.precioDeVenta = precioDeVenta;
     }
 
     @Override
     public String toString() {
-        return "Venta{" + "id=" + id + ", fechavendida=" + fechavendida + ", nombredelmedicamento=" + nombredelmedicamento + ", cantidadeproductos=" + cantidadeproductos + ", preciodeventa=" + preciodeventa + '}';
+        return "Venta{" + "id=" + id + ", fechaVendida=" + fechaVendida + ", nombreDelMedicamento=" + nombreDelMedicamento + ", cantidadDeProductos=" + cantidadDeProductos + ", precioDeVenta=" + precioDeVenta + '}';
     }
-public double Costotal(){
-    return cantidadeproductos*preciodeventa;
-}
-   
-}
+    
+}   

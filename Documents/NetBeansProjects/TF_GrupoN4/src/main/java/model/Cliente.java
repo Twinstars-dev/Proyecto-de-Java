@@ -6,7 +6,7 @@ package model;
 
 /**
  *
- * @author USUARIO
+ * @author ANDERSON
  */
     // Clase que representa un cliente de la farmacia
 public class Cliente {

@@ -107,12 +107,10 @@ public class Medicamento {
     public void setRequiereReceta(boolean requiereReceta) {
         this.requiereReceta = requiereReceta;
     }
-
-    @Override
-    public String toString() {
-        return "Medicamento{" + "codigo=" + codigo + ", nombre=" + nombre + ", laboratorio=" + laboratorio + ", stock=" + stock + ", precio=" + precio + ", fechaDeVencimiento=" + fechaDeVencimiento + ", categoria=" + categoria + ", requiereReceta=" + requiereReceta + '}';
-    }
     
+    /** Método que utiliza la clase DateTimeFormatter para 
+      * ajustar la fecha de vencimiento al formato Día/Mes/Año (dd/MM/yyyy) 
+    */
     @Override
     public String toString() {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
