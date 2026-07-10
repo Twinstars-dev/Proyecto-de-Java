@@ -24,17 +24,10 @@ public void listarVentas(){
     StringBuilder sb = new StringBuilder();
     Cliente cl = new Cliente();
         for(int i=0;i<contador;i++){
-        sb.append("Venta N°: ")
-          .append(ventas[i].getId())
-          .append("\n");
-        sb.append("Cliente: ")
-          .append(cl.getNombre())
-          .append("\n");
-        sb.append("Monto: ")
-          .append(ventas[i].getPreciodeventa())
-          .append("\n\n");
+           sb.append("Venta N°: ").append(ventas[i].getId()).append("\n");
+           sb.append("Cliente: ").append(cl.getNombre()).append("\n");
+           sb.append("Monto: ").append(ventas[i].getPreciodeventa()).append("\n\n");
     }
-
     System.out.println(sb.toString());
     System.out.println("Cantidad de ventas realizadas: "+ contador);
 }
@@ -65,21 +58,21 @@ public void fechaMayorIngreso() {
     if (contador == 0){
         System.out.println("No hay ventas registradas.");
         return;
-    }
+}
     LocalDate fechaMayor = ventas[0].getFechavendida();
     double mayorIngreso = 0;
-    for (int i = 0; i < contador; i++){
+        for(int i=0; i<contador;i++){
         double suma = 0;
-        for (int j = 0; j < contador; j++) {
-             if (ventas[i].getFechavendida().equals(ventas[j].getFechavendida())) {
-                 suma += ventas[j].getPreciodeventa();
-            }
-         }
-             if (suma > mayorIngreso) {
-                 mayorIngreso = suma;
-                 fechaMayor = ventas[i].getFechavendida();
-            }
-         }
+            for(int j=0;j<contador;j++) {
+             if(ventas[i].getFechavendida().equals(ventas[j].getFechavendida())) {
+                 suma+=ventas[j].getPreciodeventa();
+   }
+}
+             if(suma>mayorIngreso) {
+                 mayorIngreso=suma;
+                 fechaMayor=ventas[i].getFechavendida();
+    }
+}
     System.out.println("Fecha con mayor ingreso: " + fechaMayor);
     System.out.println("Ingreso total: S/. " + mayorIngreso);
 }
