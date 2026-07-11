@@ -8,7 +8,7 @@ import model.Medicamento;
 //Clase que gestiona el inventario de medicamentos
 public class GestionInventario {
     // Atributos privados: un entero y una lista que contiene objetos de la clase Medicamento
-    private Medicamento[] medicamentos;
+    private final Medicamento[] medicamentos;
     // Controla cuántos productos reales hay
     private int contador=0;
     

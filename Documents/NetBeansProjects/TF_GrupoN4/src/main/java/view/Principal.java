@@ -155,7 +155,7 @@ public class Principal {
                     //proveedores.eliminarProveedor(...)
                     break;
                 case 5:
-                    proveedores.listarProveedores();
+                    proveedores.listarProveedor();
                     break;
                 case 0:
                     break;
