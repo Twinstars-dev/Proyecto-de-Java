@@ -8,7 +8,9 @@ package model;
  *
  * @author USUARIO
  */
+    // Clase que representa un cliente de la farmacia
 public class Cliente {
+    // Atributos privados del cliente(Encapsulamienro)    
     private int id;
     private String nombre;
     private boolean recetamedica;
@@ -22,7 +24,7 @@ public class Cliente {
         this.id = id;
         this.nombre = nombre;
     }
-
+    //Constructor con todos los atributos
     public Cliente(int id, String nombre, boolean recetamedica, int telefono, String email) {
         this.id = id;
         this.nombre = nombre;
@@ -30,7 +32,7 @@ public class Cliente {
         this.telefono = telefono;
         this.email = email;
     }
-
+    //Getters y Setters de los
     public int getId() {
         return id;
     }
@@ -70,7 +72,7 @@ public class Cliente {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    
     @Override
     public String toString() {
         return "Cliente{" + "id=" + id + ", nombre=" + nombre + ", recetamedica=" + recetamedica + ", telefono=" + telefono + ", email=" + email + '}';

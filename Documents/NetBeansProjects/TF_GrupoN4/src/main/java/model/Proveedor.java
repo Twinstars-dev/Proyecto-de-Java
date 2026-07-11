@@ -8,6 +8,7 @@ package model;
  *
  * @author Anderson
  */
+//Clase que representa un proveedor 
 public class Proveedor {
 private int id;
 private String nombre;
@@ -17,12 +18,12 @@ private String tipodemedicamento;
 
     public Proveedor() {
     }
-
+    //Sobrecarga 
     public Proveedor(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
-
+    //Constructor que resive los atributos
     public Proveedor(int id, String nombre, int telefono, String email,String tipodemedicamento) {
         this.id = id;
         this.nombre = nombre;
@@ -30,7 +31,7 @@ private String tipodemedicamento;
         this.email = email;
         this.tipodemedicamento = tipodemedicamento;
     }
-
+    //Getters y Setters de los 
     public int getId() {
         return id;
     }

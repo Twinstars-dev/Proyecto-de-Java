@@ -12,7 +12,9 @@ import java.time.LocalDate;
  *
  * @author Anderson
  */
+// Clase que representa una venta de la famarcia
 public class Venta {
+// Atributos de    
     private int id;
     private LocalDate fechavendida;
     private String nombredelmedicamento;

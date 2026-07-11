@@ -15,14 +15,12 @@ public class GestionProveedores {
 //Atributos privados: una lista que contiene un objeto de la clsse provedor y un entero    
 private Proveedor[] provedores;
 private int contandor=0;
-
-//
+ //Constructor para soportar 50 proveedores
  public GestionProveedores(){
    this.provedores = new Proveedor[50];
    this.contandor=0;
 }
-
-//
+ //
  public void registarProveedor(Proveedor p){
     if(contandor<provedores.length){
        provedores[contandor] = p;
@@ -31,11 +29,11 @@ private int contandor=0;
      System.out.println("Se alcanzó el límite de proveedores");
     }   
  }
-//
+ //
  public void buscarProveedor(int codigo){
-//
+    //
     for(int i=0;i<contandor;i++){
-//    
+    //    
     if(provedores[i]!=null && provedores[i].getId()== codigo){
         System.out.println("Provedor encontrado");
         System.out.println("Nombre: "+ provedores[i].getNombre());
