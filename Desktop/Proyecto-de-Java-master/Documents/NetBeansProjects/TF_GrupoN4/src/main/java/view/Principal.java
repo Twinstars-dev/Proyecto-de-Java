@@ -10,6 +10,9 @@ import model.Medicamento;
 import model.Proveedor;
 import model.Venta;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import util.Validador;
 
 public class Principal {
     public static void main(String[] args) {
@@ -18,10 +21,38 @@ public class Principal {
         GestionClientes clientes = new GestionClientes();
         GestionProveedores proveedores = new GestionProveedores();
         GestionVentas ventas = new GestionVentas();
+        cargarDatosPrueba(inventario, clientes, proveedores,ventas);
         menuPrincipal(sc, inventario, clientes, proveedores, ventas);
-
     }
-
+    public static void cargarDatosPrueba(GestionInventario inventario,GestionClientes clientes,GestionProveedores proveedores, GestionVentas ventas){
+        // ===== MEDICAMENTOS =====
+        inventario.agregarMedicamento(new Medicamento("101","Paracetamol","Medifarma",10,5.0,LocalDate.of(2027,5,20),"Analgesico",false));
+        inventario.agregarMedicamento(new Medicamento("102","Ibuprofeno","Medifarma",5,4.0,LocalDate.of(2027,8,15),"antiinflamatorio",false));
+        inventario.agregarMedicamento(new Medicamento("103","Amoxicilina","Roxfarma",15,9.0,LocalDate.of(2030,4,21),"antibiotico",false));
+        inventario.agregarMedicamento(new Medicamento("104","Loratadina","Roxfarma",10,10.0,LocalDate.of(2030,2,11),"antihistaminico",true));
+        inventario.agregarMedicamento(new Medicamento("105","Omeprazol","Laboratorios Unidos",15,6.0,LocalDate.of(2028,7,25),"inhibidor",true));
+        inventario.agregarMedicamento(new Medicamento("106","Naproxeno","Laboratorios Unidos",2,10.0,LocalDate.of(2026,7,18),"analgesico",true));
+        // ===== CLIENTES =====
+        clientes.agregarCliente(new Cliente(1,"Juan Pérez",false,987654321,"juan@gmail.com"));
+        clientes.agregarCliente(new Cliente(2,"María López",true,912345678,"maria@gmail.com"));
+        clientes.agregarCliente(new Cliente(3,"Carlos Torres",false,998877665,"carlos@gmail.com"));
+        // ===== PROVEEDORES =====
+        proveedores.registrarProveedor(new Proveedor(1,"Laboratorio Bayer",987111222,"bayer@gmail.com","Analgésicos"));
+        proveedores.registrarProveedor(new Proveedor(2,"Medifarma",999333444,"medifarma@gmail.com","Antibióticos"));
+        proveedores.registrarProveedor(new Proveedor(3,"Inkafarma Distribución",988555666,"inkafarma@gmail.com","Vitaminas"));
+        System.out.println("datos cargados.");
+        // ===== CLIENTES =====
+        // 1. Crear los clientes necesarios
+        Cliente cliente1 = new Cliente();
+        cliente1.setNombre("Mario Vargas");
+        Cliente cliente2 = new Cliente();
+        cliente2.setNombre("Abraham Valdelomar");
+        Cliente cliente3 = new Cliente();
+        cliente3.setNombre("Cesar Vallejo");
+        ventas.registrarVenta(new Venta(1,LocalDate.of(2026,7,11),"Panadol",3,4.5,cliente1));
+        ventas.registrarVenta(new Venta(2,LocalDate.of(2026,7,10),"Omeprazol",4,5.0,cliente2));
+        ventas.registrarVenta(new Venta(3,LocalDate.of(2026,7,9),"Panadol",5,6.0,cliente3));
+    }
     public static void menuPrincipal(
             Scanner sc,
             GestionInventario inventario,
@@ -77,7 +108,6 @@ public class Principal {
             System.out.println("4. Eliminar medicamento");
             System.out.println("5. Listar medicamentos");
             System.out.println("6. Venta de medicamento");
-            System.out.println("7. Mostrar medicamentos por vencer");
             System.out.println("0. Regresar");
             System.out.print("Opcion: ");
             opcion = sc.nextInt();
@@ -92,23 +122,32 @@ public class Principal {
                     String laboratorio = sc.nextLine();
                     System.out.print("Stock: ");
                     int stock = sc.nextInt();
-                    System.out.print("Precio: ");
+                    System.out.print("Precio por unidad: ");
                     double precio = sc.nextDouble();
                     sc.nextLine();
                     System.out.print("Fecha de vencimiento (AAAA-MM-DD): ");
                     LocalDate fecha = LocalDate.parse(sc.nextLine());
                     System.out.print("Categoria: ");
                     String categoria = sc.nextLine();
-                    System.out.print(" ¿Requiere receta? (true/false): ");
-                    boolean receta = sc.nextBoolean();
+                    String respuesta;
+                    boolean receta;
+                    do {
+                        System.out.print("¿Requiere receta? (Si/No): ");
+                        respuesta = sc.next();
+                        if(!respuesta.equalsIgnoreCase("si") && !respuesta.equalsIgnoreCase("no")){
+                            System.out.println("Ingrese únicamente 'Si' o 'No'.");
+                        }
+                    } while(!respuesta.equalsIgnoreCase("si") && !respuesta.equalsIgnoreCase("no"));
+                    
+                    receta = respuesta.equalsIgnoreCase("si");
                     sc.nextLine();
                     Medicamento medicamento = new Medicamento(codigo,nombre,laboratorio,stock,precio,fecha,categoria,receta);
                     inventario.agregarMedicamento(medicamento);
                     break;
                 case 2:
-                    System.out.print("Ingrese codigo: ");
+                    System.out.print("Ingrese el codigo del medicamento que busca : ");
                     codigo = sc.nextLine();
-                    System.out.println(inventario.buscarMedicamento(codigo));
+                    System.out.println(inventario.buscarMedicamentoPorCodigo(codigo));
                     break;
                 case 3:
                     System.out.print("Nombre del medicamento: ");
@@ -135,9 +174,6 @@ public class Principal {
                     int cantidad = sc.nextInt();
                     sc.nextLine();
                     inventario.ventaMedicamento(nombre, cantidad);
-                    break;
-                case 7:
-                    inventario.mostrarMedicamentosPorVencer();
                     break;
                 case 0:
                     break;
@@ -169,8 +205,17 @@ public class Principal {
                     sc.nextLine();
                     System.out.print("Nombre: ");
                     String nombre = sc.nextLine();
-                    System.out.print("¿Tiene receta medica? (true/false): ");
-                    boolean receta = sc.nextBoolean();
+                    String respuesta;
+                    boolean receta;
+                    do {
+                        System.out.print("¿Requiere receta? (Si/No): ");
+                        respuesta = sc.next();
+                        if(!respuesta.equalsIgnoreCase("si") && !respuesta.equalsIgnoreCase("no")){
+                            System.out.println("Ingrese únicamente 'Si' o 'No'.");
+                        }
+                    } while(!respuesta.equalsIgnoreCase("si") && !respuesta.equalsIgnoreCase("no"));
+                    
+                    receta = respuesta.equalsIgnoreCase("si");
                     System.out.print("Telefono: ");
                     int telefono = sc.nextInt();
                     sc.nextLine();
@@ -292,22 +337,41 @@ public class Principal {
             System.out.println("0. Regresar");
             System.out.print("Opcion: ");
             opcion = sc.nextInt();
-            sc.next();
-            
+            sc.nextLine();
+     
             switch (opcion) {
                 case 1:
-                    System.out.print("Codigo de venta: ");
-                    int id = sc.nextInt();
-                    sc.nextLine();
+                    System.out.print("Código de venta: ");
+                    int id = Validador.leerInt(sc);
+                    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    System.out.print("Fecha de venta (dd/MM/yyyy): ");
+                    String fechaVendida = sc.next();
+                    LocalDate fecha;
+                    try {
+                        fecha = LocalDate.parse(fechaVendida, formato);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Formato de fecha inválido.");
+                        break;
+                    }
                     System.out.print("Nombre del medicamento: ");
-                    String nombre = sc.nextLine();
+                    String nombre = sc.next();
                     System.out.print("Cantidad: ");
-                    int cantidad = sc.nextInt();
+                    int cantidad = Validador.leerInt(sc);
                     System.out.print("Total de la venta: ");
-                    double total = sc.nextDouble();
-                    sc.nextLine();
-                    Venta venta = new Venta(id,fechaVendida,nombre,cantidad,total);
-                    ventas.registrarVenta(venta);
+                    double total = Validador.leerDouble(sc);
+                    System.out.print("Cliente: ");
+                    Cliente cliente = new Cliente();
+                    cliente.setNombre(sc.nextLine()); 
+                    // 1. Primero intentamos descontar del inventario
+                    boolean stockDescontado = inventario.ventaMedicamento(nombre, cantidad);
+                    // 2. Solo si el inventario fue exitoso, registramos la venta en el sistema
+                    if (stockDescontado) {
+                        Venta venta = new Venta(id, fecha, nombre, cantidad, total, cliente);
+                        ventas.registrarVenta(venta);
+                        System.out.println("Venta realizada y registrada correctamente.");
+                    } else {
+                       System.out.println("La venta ha sido cancelada por problemas de inventario.");
+                    }
                     inventario.ventaMedicamento(nombre, cantidad);
                     break;
                 case 2:
@@ -320,7 +384,9 @@ public class Principal {
                     ventas.listarVentas();
                     break;
                 case 4:
-                    System.out.println("Ingresos totales: S/. "+ ventas.calcularIngresosTotales());
+                    
+                    System.out.println("Las estadísticas muestran que: ");
+                    ventas.calcularImpuesto();
                     break;
                 case 5:
                     ventas.fechaMayorIngreso();
@@ -332,6 +398,7 @@ public class Principal {
             }
         } while (opcion != 0);
     }
+
     public static void menuReportes(GestionInventario inventario, GestionVentas ventas) {
         int opcion;
         Scanner sc = new Scanner(System.in);
@@ -339,9 +406,8 @@ public class Principal {
             System.out.println("\n========== REPORTES ==========");
             System.out.println("1. Medicamentos con stock bajo");
             System.out.println("2. Medicamentos proximos a vencer");
-            System.out.println("3. Ingresos totales");
-            System.out.println("4. Fecha con mayor ingreso");
             System.out.println("0. Regresar");
+            System.out.println("================================");
             System.out.print("Opcion: ");
             opcion = sc.nextInt();
             switch (opcion) {
@@ -360,12 +426,6 @@ public class Principal {
                     break;
                 case 2:
                     inventario.mostrarMedicamentosPorVencer();
-                    break;
-                case 3:
-                    System.out.println("Ingresos totales: S/. "+ ventas.calcularIngresosTotales());
-                    break;
-                case 4:
-                    ventas.fechaMayorIngreso();
                     break;
                 case 0:
                     break;

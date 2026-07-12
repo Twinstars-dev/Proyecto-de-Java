@@ -55,31 +55,42 @@ private Venta[] ventas;
     }
 
     public void listarVentas() {
-        if (contador == 0) {
+           if(contador == 0){
             System.out.println("No existen ventas registradas.");
             return;
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < contador; i++) {
-            sb.append("\n===================================================================\n");
-            sb.append("Código: ").append(ventas[i].getId()).append("\n");
-            sb.append("Fecha: ").append(ventas[i].getFechaVendida()).append("\n");
-            sb.append("Medicamento: ").append(ventas[i].getNombreDelMedicamento()).append("\n");
-            sb.append("Cantidad: ").append(ventas[i].getCantidadDeProductos()).append("\n");
-            sb.append("Total: S/. ").append(ventas[i].getPrecioDeVenta()).append("\n");
-            sb.append("\n===================================================================");
+            sb.append("\n==============================LISTA DE VENTAS==========================\n");
+            sb.append("= Código:                                                               =").append(ventas[i].getId()).append("\n");
+            sb.append("= Fecha:                                                                =").append(ventas[i].getFechaVendida()).append("\n");
+            sb.append("= Medicamento:                                                          =").append(ventas[i].getNombreDelMedicamento()).append("\n");                                          
+            sb.append("= Cantidad:                                                             =").append(ventas[i].getCantidadDeProductos()).append("\n");                                          
+            sb.append("= Total: S/.                                                            =").append(ventas[i].getPrecioDeVenta()).append("\n");                                          
+            sb.append("\n========================================================================");
         }
         System.out.println(sb.toString());
     }
     
-    public double calcularIngresosTotales() {
-        double total = 0;
-        for (int i = 0; i < contador; i++) {
-            if (ventas[i] != null) {
-                total += ventas[i].getPrecioDeVenta();
+    public String calcularImpuesto(){;
+        double subtotal=0;
+        double igv=0.0;
+        double total=0;
+        for(int i = 0;i<contador;i++){
+            if(ventas[i] != null){
+                subtotal = ventas[i].getPrecioDeVenta() * ventas[i].getCantidadDeProductos();
+                igv = subtotal * 0.18;
+                total = subtotal + igv;
+            }else{
+                return ""; 
             }
         }
-        return total;
+        System.out.println("==============================");
+        System.out.println("El subtotal es : "+subtotal);
+        System.out.println("El IGV es : "+igv);
+        System.out.println("El monto total sería: "+total);
+        System.out.println("==============================");
+        return "";
     }
 
     public void fechaMayorIngreso() {
@@ -103,9 +114,6 @@ private Venta[] ventas;
         }
         System.out.println("Fecha con mayor ingreso: " + fechaMayor);
         System.out.println("Ingreso total: S/. " + mayorIngreso);
-    }
-    public int cantidadVentas() {
-        return contador;
     }
 }
 

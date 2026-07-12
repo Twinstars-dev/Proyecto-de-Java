@@ -66,11 +66,17 @@ public class GestionClientes {
             System.out.println("No existen clientes.");
             return;
         }
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n================================== LISTA DE CLIENTES ==================================\n");
         for (int i = 0; i < contador; i++) {
-            if (clientes[i] != null) {
-                System.out.println(clientes[i].toString());
-            }
+            sb.append("= Id: ").append(clientes[i].getId()).append("\n");
+            sb.append("= Nombre: ").append(clientes[i].getNombre()).append("\n");
+            sb.append("= Tiene receta médica? : ").append(clientes[i].isRecetamedica()).append("\n");
+            sb.append("= Telefono: ").append(clientes[i].getTelefono()).append("\n");
+            sb.append("= Email ").append(clientes[i].getEmail()).append("\n");
+            sb.append("=========================================================================================\n");
         }
+        System.out.println(sb.toString());
     }
 
     // Método que actualiza los datos de un cliente
