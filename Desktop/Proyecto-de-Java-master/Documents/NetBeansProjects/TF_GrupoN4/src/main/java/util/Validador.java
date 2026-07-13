@@ -719,30 +719,44 @@ public class Validador {
     }
     
     /**
-     * Lee un código de medicamento (do-while)
-     * @param mensaje Mensaje a mostrar
-     * @return Código válido
-     */
-    public static String leerCodigoMedicamento(String mensaje) {
-        String codigo;
-        boolean valido;
-        
-        do {
+ * Lee un código de medicamento de exactamente 6 dígitos
+ * @param mensaje Mensaje a mostrar al usuario
+ * @return Código de medicamento válido (int de 6 dígitos)
+ */
+public static int leerCodigoMedicamento(String mensaje) {
+    int codigo = 0;
+    boolean valido;
+    
+    do {
+        try {
             System.out.print(mensaje);
-            codigo = sc.nextLine().trim();
+            codigo = Integer.parseInt(sc.nextLine());
             
-            if (codigo.isEmpty()) {
-                System.out.println("   Error: El código no puede estar vacío.");
+            // Validar que sea positivo
+            if (codigo <= 0) {
+                System.out.println("   Error: El código debe ser un número positivo.");
                 valido = false;
-            } else if (codigo.length() > 20) {
-                System.out.println("   Error: El código no puede exceder los 20 caracteres.");
-                valido = false;
-            } else {
-                valido = true;
+                continue;
             }
-        } while (!valido);
-        
-        return codigo;
+            
+            // Validar que tenga exactamente 6 dígitos
+            String codigoStr = String.valueOf(codigo);
+            if (codigoStr.length() != 6) {
+                System.out.println("   Error: El código debe tener exactamente 6 dígitos.");
+                System.out.println("   Ingresaste: " + codigoStr.length() + " dígito(s).");
+                valido = false;
+                continue;
+            }
+            
+            valido = true;
+            
+        } catch (NumberFormatException e) {
+            System.out.println("   Error: Debe ingresar un número entero válido.");
+            valido = false;
+        }
+    } while (!valido);
+    
+    return codigo;
     }
     
     /**

@@ -59,17 +59,17 @@ public class Principal {
                                        GestionProveedores proveedores, GestionVentas ventas) {
     try {
         // === MEDICAMENTOS (true = modo silencioso) ===
-        inventario.agregarMedicamento(new Medicamento("101", "Paracetamol", "Medifarma", 10, 5.0, 
+        inventario.agregarMedicamento(new Medicamento(101101, "Paracetamol", "Medifarma", 10, 5.0, 
                 LocalDate.of(2027, 5, 20), "Analgesico", false), true);
-        inventario.agregarMedicamento(new Medicamento("102", "Ibuprofeno", "Medifarma", 5, 4.0, 
+        inventario.agregarMedicamento(new Medicamento(102102, "Ibuprofeno", "Medifarma", 5, 4.0, 
                 LocalDate.of(2027, 8, 15), "Antiinflamatorio", false), true);
-        inventario.agregarMedicamento(new Medicamento("103", "Amoxicilina", "Roxfarma", 15, 9.0, 
+        inventario.agregarMedicamento(new Medicamento(103103, "Amoxicilina", "Roxfarma", 15, 9.0, 
                 LocalDate.of(2030, 4, 21), "Antibiotico", false), true);
-        inventario.agregarMedicamento(new Medicamento("104", "Loratadina", "Roxfarma", 10, 10.0, 
+        inventario.agregarMedicamento(new Medicamento(104104, "Loratadina", "Roxfarma", 10, 10.0, 
                 LocalDate.of(2030, 2, 11), "Antihistaminico", true), true);
-        inventario.agregarMedicamento(new Medicamento("105", "Omeprazol", "Laboratorios Unidos", 15, 6.0, 
+        inventario.agregarMedicamento(new Medicamento(105105, "Omeprazol", "Laboratorios Unidos", 15, 6.0, 
                 LocalDate.of(2028, 7, 25), "Inhibidor", true), true);
-        inventario.agregarMedicamento(new Medicamento("106", "Naproxeno", "Laboratorios Unidos", 2, 10.0, 
+        inventario.agregarMedicamento(new Medicamento(106106, "Naproxeno", "Laboratorios Unidos", 2, 10.0, 
                 LocalDate.of(2026, 7, 18), "Analgesico", true), true);
         
         // === CLIENTES (true = modo silencioso) ===
@@ -164,7 +164,7 @@ public class Principal {
     private static void registrarMedicamento(GestionInventario inventario) {
         mostrarSubtitulo(" REGISTRAR MEDICAMENTO");
         
-        String codigo = Validador.leerCodigoMedicamento("  Codigo: ");
+        int codigo = Validador.leerCodigoMedicamento("  Codigo: ");
         String nombre = Validador.leerTexto("  Nombre: ");
         String laboratorio = Validador.leerTexto("  Laboratorio: ");
         int stock = Validador.leerEnteroPositivo("  Stock: ");
@@ -180,7 +180,7 @@ public class Principal {
     
     private static void buscarMedicamento(GestionInventario inventario) {
         mostrarSubtitulo(" BUSCAR MEDICAMENTO");
-        String codigo = Validador.leerCodigoMedicamento("  Ingrese el código: ");
+        int codigo = Validador.leerCodigoMedicamento("  Ingrese el código: ");
         
         String resultado = inventario.buscarMedicamentoPorCodigo(codigo);
         System.out.println("   Resultado: " + resultado);
@@ -197,7 +197,7 @@ public class Principal {
     
     private static void eliminarMedicamento(GestionInventario inventario) {
         mostrarSubtitulo(" ELIMINAR MEDICAMENTO");
-        String codigo = Validador.leerCodigoMedicamento("  Código del medicamento: ");
+        int codigo = Validador.leerCodigoMedicamento("  Código del medicamento: ");
         
         if (Validador.leerConfirmacion("  ¿Está seguro de eliminar este medicamento? (S/N): ")) {
             inventario.eliminarMedicamento(codigo);

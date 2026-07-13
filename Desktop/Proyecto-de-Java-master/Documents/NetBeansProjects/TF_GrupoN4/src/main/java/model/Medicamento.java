@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 //Clase que representa un medicamento de la farmacia.
 public class Medicamento {
     //Atributos privados del medicamento (Encapsulamiento)
-    private String codigo;
+    private int codigo;
     private String nombre;
     private String laboratorio;
     private int stock;                   
@@ -26,13 +26,13 @@ public class Medicamento {
     }
     
     //Constructor con 2 atributos
-    public Medicamento(String codigo, String nombre) {
+    public Medicamento(int codigo, String nombre) {
         this.codigo = codigo;
         this.nombre = nombre;
     }
     
     //Constructor con todos los atributos
-    public Medicamento(String codigo, String nombre, String laboratorio, int stock, double precio, LocalDate fechaDeVencimiento, String categoria, boolean requiereReceta) {
+    public Medicamento(int codigo, String nombre, String laboratorio, int stock, double precio, LocalDate fechaDeVencimiento, String categoria, boolean requiereReceta) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.laboratorio = laboratorio;
@@ -44,11 +44,11 @@ public class Medicamento {
     }
     
     //Getters y Setters de los atributos
-    public String getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 

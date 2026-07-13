@@ -50,11 +50,11 @@ public class GestionInventario {
      * @param codigo Código del medicamento a buscar
      * @return El nombre del medicamento o un mensaje de error
      */
-    public String buscarMedicamentoPorCodigo(String codigo) {
+    public String buscarMedicamentoPorCodigo(int codigo) {
         // Recorre todos los medicamentos registrados
         for (int i = 0; i < contador; i++) {
             // Verifica si el medicamento existe y si su código coincide
-            if (medicamentos[i] != null && medicamentos[i].getCodigo().equalsIgnoreCase(codigo)) {
+            if (medicamentos[i] != null && medicamentos[i].getCodigo()==codigo) {
                 return medicamentos[i].getNombre(); //  Lo encontró, retorna el nombre
             }
         }
@@ -127,12 +127,12 @@ public class GestionInventario {
      * Elimina un medicamento del inventario buscándolo por su código
      * @param codigoBuscar Código del medicamento a eliminar
      */
-    public void eliminarMedicamento(String codigoBuscar) {
+    public void eliminarMedicamento(int codigoBuscar) {
         boolean encontrado = false;
         
         // Recorre todos los medicamentos buscando el código
         for (int i = 0; i < contador; i++) {
-            if (medicamentos[i] != null && medicamentos[i].getCodigo().equalsIgnoreCase(codigoBuscar)) {
+            if (medicamentos[i] != null && medicamentos[i].getCodigo()==codigoBuscar) {
                 encontrado = true;
                 
                 // Desplaza los elementos a la izquierda para rellenar el hueco
