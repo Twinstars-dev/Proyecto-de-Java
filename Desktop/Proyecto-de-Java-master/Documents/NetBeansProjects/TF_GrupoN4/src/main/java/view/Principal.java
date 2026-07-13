@@ -76,7 +76,7 @@ public class Principal {
             ventas.registrarVenta(new Venta(2, LocalDate.of(2026, 7, 10), "Omeprazol", 4, 5.0, cliente2));
             ventas.registrarVenta(new Venta(3, LocalDate.of(2026, 7, 9), "Panadol", 5, 6.0, cliente3));
             
-            System.out.println("✅ Datos de prueba cargados correctamente.");
+            System.out.println("Datos de prueba cargados correctamente.");
             
         } catch (Exception e) {
             System.out.println("Error al cargar datos de prueba: " + e.getMessage());
