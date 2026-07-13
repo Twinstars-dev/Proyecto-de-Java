@@ -415,7 +415,6 @@ public class Principal {
                         
                         Proveedor proveedor = new Proveedor(id, nombre, telefono, email, tipo);
                         proveedores.registrarProveedor(proveedor);
-                        System.out.println("✅ Proveedor registrado correctamente.");
                         break;
                         
                     case 2:
