@@ -594,7 +594,53 @@ public class Validador {
         
         return fecha;
     }
+    /**
+ * Lee una fecha de vencimiento con validación de mínimo 30 días después de hoy
+ * @param mensaje Mensaje a mostrar al usuario
+ * @return Fecha de vencimiento válida
+ */
+    public static LocalDate leerFechaVencimiento(String mensaje) {
+    LocalDate fecha = null;
+    boolean valido;
+    LocalDate hoy = LocalDate.now();
+    LocalDate fechaMinima = hoy.plusDays(30);
     
+    do {
+        try {
+            System.out.print(mensaje);
+            fecha = LocalDate.parse(sc.nextLine());
+            
+            // Validar que no sea fecha pasada
+            if (fecha.isBefore(hoy)) {
+                System.out.println("   Error: La fecha de vencimiento no puede ser anterior a hoy.");
+                valido = false;
+                continue;
+            }
+            
+            // Validar que sea al menos 30 días después
+            if (fecha.isBefore(fechaMinima)) {
+                System.out.println("   Error: La fecha de vencimiento debe ser al menos 30 días después de hoy.");
+                System.out.println("   Fecha mínima permitida: " + fechaMinima);
+                valido = false;
+                continue;
+            }
+            
+            valido = true;
+            
+        } catch (DateTimeParseException e) {
+            System.out.println("   Error: Formato inválido. Use yyyy-MM-dd (ej: 2026-12-31)");
+            valido = false;
+        }
+    } while (!valido);
+    
+    return fecha;
+    }
+    /**
+ * Valida que una fecha de vencimiento sea válida (mínimo 30 días después de hoy)
+ * @param fecha Fecha a validar
+ * @return true si es válida
+ */
+
     /**
      * Lee una opción de menú dentro de un rango (do-while)
      * @param mensaje Mensaje a mostrar

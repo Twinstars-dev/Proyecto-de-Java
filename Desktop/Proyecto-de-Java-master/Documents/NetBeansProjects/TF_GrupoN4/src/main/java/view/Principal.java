@@ -106,15 +106,15 @@ public class Principal {
         
         do {
             mostrarTitulo(" SISTEMA DE GESTIÓN DE FARMACIA");
-            System.out.println("  1.  Gestión de Medicamentos");
-            System.out.println("  2.  Gestión de Clientes");
-            System.out.println("  3.  Gestión de Proveedores");
-            System.out.println("  4.  Gestión de Ventas");
+            System.out.println("  1.  Gestion de Medicamentos");
+            System.out.println("  2.  Gestion de Clientes");
+            System.out.println("  3.  Gestion de Proveedores");
+            System.out.println("  4.  Gestion de Ventas");
             System.out.println("  5.  Reportes");
             System.out.println("  0.  Salir");
             System.out.println(LINEA_SIMPLE);
             
-            opcion = Validador.leerOpcion("  Seleccione una opción: ", 0, 5);
+            opcion = Validador.leerOpcion("  Seleccione una opcion: ", 0, 5);
             
             switch (opcion) {
                 case 1 -> menuMedicamentos(inventario);
@@ -144,7 +144,7 @@ public class Principal {
             System.out.println("  0. Regresar");
             System.out.println(LINEA_SIMPLE);
             
-            opcion = Validador.leerOpcion("  Opción: ", 0, 6);
+            opcion = Validador.leerOpcion("  Opcion: ", 0, 6);
             
             switch (opcion) {
                 case 1 -> registrarMedicamento(inventario);
@@ -164,19 +164,18 @@ public class Principal {
     private static void registrarMedicamento(GestionInventario inventario) {
         mostrarSubtitulo(" REGISTRAR MEDICAMENTO");
         
-        String codigo = Validador.leerCodigoMedicamento("  Código: ");
+        String codigo = Validador.leerCodigoMedicamento("  Codigo: ");
         String nombre = Validador.leerTexto("  Nombre: ");
         String laboratorio = Validador.leerTexto("  Laboratorio: ");
         int stock = Validador.leerEnteroPositivo("  Stock: ");
         double precio = Validador.leerDoublePositivo("  Precio: ");
-        LocalDate fechaVencimiento = Validador.leerFecha("  Fecha de vencimiento (yyyy-MM-dd): ");
+        LocalDate fechaVencimiento = Validador.leerFechaVencimiento("  Fecha de vencimiento (yyyy-MM-dd): ");
         String categoria = Validador.leerTexto("  Categoría: ");
         boolean requiereReceta = Validador.leerConfirmacion("  ¿Requiere receta médica? (S/N): ");
         
         Medicamento m = new Medicamento(codigo, nombre, laboratorio, stock, precio, 
                                         fechaVencimiento, categoria, requiereReceta);
         inventario.agregarMedicamento(m);
-        System.out.println("   Medicamento registrado correctamente.");
     }
     
     private static void buscarMedicamento(GestionInventario inventario) {
@@ -310,7 +309,7 @@ public class Principal {
             return;
         }
         
-        int telefono = Validador.leerTelefono("  Nuevo teléfono (9 dígitos): ");
+        int telefono = Validador.leerTelefono("  Nuevo telefono (9 dígitos): ");
         String email = Validador.leerEmail("  Nuevo email (debe contener @ y .com/.pe): ");
         
         clientes.actualizarCliente(id, telefono, email);
@@ -462,7 +461,7 @@ public class Principal {
         int id = Validador.leerIdVenta("  Código de venta: ");
         
         // Verificar ID único
-        if (ventas.obtenerVenta(id,false) != null) {
+        if (ventas.obtenerVenta(id,true) != null) {
             System.out.println("   Error: Ya existe una venta con el código " + id);
             return;
         }
