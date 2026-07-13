@@ -69,13 +69,13 @@ public class GestionVentas {
         
         // Si la venta existe, muestra sus datos en formato de tabla
         if (venta != null) {
-            System.out.println("======================= VENTA ========================");
-            System.out.println("= Código: " + venta.getId() + "                        =");
-            System.out.println("= Fecha: " + venta.getFechaVendida() + "               =");
-            System.out.println("= Medicamento: " + venta.getNombreDelMedicamento() + " =");
-            System.out.println("= Cantidad: " + venta.getCantidadDeProductos() + "     =");
-            System.out.println("= Total: S/. " + venta.getPrecioDeVenta() + "          =");
-            System.out.println("======================================================");
+            System.out.println("\n======================= VENTA ========================\n");
+            System.out.println("= Código: " + venta.getId() + "");
+            System.out.println("= Fecha: " + venta.getFechaVendida() + "");
+            System.out.println("= Medicamento: " + venta.getNombreDelMedicamento() + "");
+            System.out.println("= Cantidad: " + venta.getCantidadDeProductos() + "");
+            System.out.println("= Total: S/. " + venta.getPrecioDeVenta() + "");
+            System.out.println("============================================================");
         } else {
             System.out.println("Venta no encontrada.");
         }
@@ -95,15 +95,15 @@ public class GestionVentas {
         
         // Construye el reporte usando StringBuilder
         StringBuilder sb = new StringBuilder();
+        sb.append("\n==============================LISTA DE VENTAS==========================\n");
         for (int i = 0; i < contador; i++) {
             // Agrega los datos de cada venta al StringBuilder
-            sb.append("\n==============================LISTA DE VENTAS==========================\n");
             sb.append("= Codigo:         =").append(ventas[i].getId()).append("\n");
             sb.append("= Fecha:          =").append(ventas[i].getFechaVendida()).append("\n");
             sb.append("= Medicamento:    =").append(ventas[i].getNombreDelMedicamento()).append("\n");
             sb.append("= Cantidad:       =").append(ventas[i].getCantidadDeProductos()).append("\n");
             sb.append("= Total: S/.      =").append(ventas[i].getPrecioDeVenta()).append("\n");
-            sb.append("\n========================================================================");
+            sb.append("========================================================================");
         }
         // Muestra todo el texto construido
         System.out.println(sb.toString());
