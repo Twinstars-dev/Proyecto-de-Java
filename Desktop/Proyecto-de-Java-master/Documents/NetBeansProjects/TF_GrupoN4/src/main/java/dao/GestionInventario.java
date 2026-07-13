@@ -221,12 +221,12 @@ public class GestionInventario {
             if (medicamentos[i] != null) {
                 // Caso 1: Medicamento ya vencido
                 if (medicamentos[i].getFechaDeVencimiento().isBefore(hoy)) {
-                    System.out.println("⚠️ MEDICAMENTO VENCIDO: " + medicamentos[i].getNombre());
+                    System.out.println("MEDICAMENTO VENCIDO: " + medicamentos[i].getNombre());
                     existe = true;
                 } 
                 // Caso 2: Medicamento próximo a vencer (menos de 1 mes)
                 else if (medicamentos[i].getFechaDeVencimiento().isBefore(unMesDespues)) {
-                    System.out.println("⚠️ MEDICAMENTO PROXIMO A VENCER: " + medicamentos[i].getNombre());
+                    System.out.println("MEDICAMENTO PROXIMO A VENCER: " + medicamentos[i].getNombre());
                     existe = true;
                 }
             }

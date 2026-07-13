@@ -98,11 +98,11 @@ public class GestionVentas {
         for (int i = 0; i < contador; i++) {
             // Agrega los datos de cada venta al StringBuilder
             sb.append("\n==============================LISTA DE VENTAS==========================\n");
-            sb.append("= Código:                                                               =").append(ventas[i].getId()).append("\n");
-            sb.append("= Fecha:                                                                =").append(ventas[i].getFechaVendida()).append("\n");
-            sb.append("= Medicamento:                                                          =").append(ventas[i].getNombreDelMedicamento()).append("\n");
-            sb.append("= Cantidad:                                                             =").append(ventas[i].getCantidadDeProductos()).append("\n");
-            sb.append("= Total: S/.                                                            =").append(ventas[i].getPrecioDeVenta()).append("\n");
+            sb.append("= Codigo:         =").append(ventas[i].getId()).append("\n");
+            sb.append("= Fecha:          =").append(ventas[i].getFechaVendida()).append("\n");
+            sb.append("= Medicamento:    =").append(ventas[i].getNombreDelMedicamento()).append("\n");
+            sb.append("= Cantidad:       =").append(ventas[i].getCantidadDeProductos()).append("\n");
+            sb.append("= Total: S/.      =").append(ventas[i].getPrecioDeVenta()).append("\n");
             sb.append("\n========================================================================");
         }
         // Muestra todo el texto construido
