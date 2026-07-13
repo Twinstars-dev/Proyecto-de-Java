@@ -27,13 +27,20 @@ public class GestionInventario {
      * @param m Objeto Medicamento a registrar
      */
     public void agregarMedicamento(Medicamento m) {
-        // Verifica si hay espacio disponible
+        agregarMedicamento(m, false);
+    }
+
+    public void agregarMedicamento(Medicamento m, boolean silencioso) {
         if (contador < medicamentos.length) {
-            medicamentos[contador] = m;  // Guarda el medicamento en la posición actual
-            contador++;                  // Incrementa el contador
-            System.out.println("Medicamento registrado correctamente.");
+            medicamentos[contador] = m;
+            contador++;
+            if (!silencioso) {
+                System.out.println("Medicamento registrado correctamente.");
+            }
         } else {
-            System.out.println("Inventario de medicamentos lleno.");
+            if (!silencioso) {
+                System.out.println("Inventario de medicamentos lleno.");
+            }
         }
     }
 

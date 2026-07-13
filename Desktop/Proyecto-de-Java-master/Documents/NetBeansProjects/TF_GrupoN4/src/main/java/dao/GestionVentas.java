@@ -1,12 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
 import java.time.LocalDate;
 import model.Venta;
-import model.Cliente;
+import util.Validador;
 
 /**
  * Clase que gestiona las operaciones relacionadas con las ventas
@@ -14,166 +10,258 @@ import model.Cliente;
  */
 public class GestionVentas {
     
-    // ===== ATRIBUTOS =====
-    private Venta[] ventas;  // Arreglo para almacenar las ventas
-    private int contador;    // Controla cuántas ventas hay registradas
+    private static final int CAPACIDAD_MAXIMA = 100;
+    private Venta[] ventas;
+    private int contador;
 
-    // ===== CONSTRUCTOR =====
-    // Inicializa el arreglo con capacidad para 100 ventas
     public GestionVentas() {
-        this.ventas = new Venta[100];
+        this.ventas = new Venta[CAPACIDAD_MAXIMA];
         this.contador = 0;
     }
 
     // ===== MÉTODO PARA REGISTRAR UNA VENTA =====
-    /**
-     * Agrega una nueva venta al arreglo
-     * @param venta Objeto Venta a registrar
-     */
-    public void registrarVenta(Venta venta) {
-        // Verifica si hay espacio disponible
-        if (contador < ventas.length) {
-            ventas[contador] = venta;  // Guarda la venta en la posición actual
-            contador++;                 // Incrementa el contador
-            System.out.println("Venta registrada correctamente.");
-        } else {
-            System.out.println("No hay espacio para registrar más ventas.");
+    public boolean registrarVenta(Venta venta) {
+    return registrarVenta(venta, false);
+}
+
+    public boolean registrarVenta(Venta venta, boolean silencioso) {
+    try {
+        // Validación: Espacio disponible
+        if (!Validador.validarEspacioDisponible(contador, CAPACIDAD_MAXIMA, 
+                venta != null ? venta.getNombreDelMedicamento() : "venta")) {
+            return false;
         }
+        
+        if (venta == null) {
+            if (!silencioso) System.out.println(" Error: No se puede registrar una venta nula.");
+            return false;
+        }
+        
+        if (!Validador.validarIdVenta(venta.getId())) return false;
+        if (!Validador.validarNombreMedicamento(venta.getNombreDelMedicamento())) return false;
+        if (!Validador.validarCantidad(venta.getCantidadDeProductos())) return false;
+        if (!Validador.validarPrecio(venta.getPrecioDeVenta())) return false;
+        if (!Validador.validarFechaVenta(venta.getFechaVendida())) return false;
+        
+        // Validación extra: ID duplicado - USANDO VERSIÓN SILENCIOSA
+        if (obtenerVenta(venta.getId(), true) != null) {  // ← true = silencioso
+            if (!silencioso) System.out.println(" Error: Ya existe una venta con el ID " + venta.getId());
+            return false;
+        }
+        
+        ventas[contador] = venta;
+        contador++;
+        if (!silencioso) {
+            System.out.println(" Venta registrada correctamente.");
+        }
+        return true;
+        
+    } catch (NullPointerException e) {
+        if (!silencioso) {
+            System.out.println(" Error crítico: Datos de venta incompletos.");
+        }
+        return false;
+    } catch (Exception e) {
+        if (!silencioso) {
+            System.out.println(" Error inesperado: " + e.getMessage());
+        }
+        return false;
+    }
     }
 
-    // ===== MÉTODO PARA OBTENER UNA VENTA POR SU ID =====
-    /**
-     * Busca una venta por su código (ID)
-     * @param codigo ID de la venta a buscar
-     * @return El objeto Venta si lo encuentra, o null si no existe
-     */
-    public Venta obtenerVenta(int codigo) {
-        // Recorre todas las ventas registradas
+    // ===== MÉTODO PARA OBTENER UNA VENTA =====
+    public Venta obtenerVenta(int codigo, boolean silencioso) {
+    try {
+        if (!Validador.validarIdVenta(codigo)) return null;
+        
+        // Validación: Existen ventas - USANDO VERSIÓN SILENCIOSA
+        if (!Validador.validarExistenElementos(contador, "ventas", silencioso)) {
+            return null;
+        }
+        
         for (int i = 0; i < contador; i++) {
-            // Verifica si la venta existe y si su ID coincide con el buscado
             if (ventas[i] != null && ventas[i].getId() == codigo) {
-                return ventas[i];  // Retorna la venta encontrada
+                return ventas[i];
             }
         }
-        return null;  // Retorna null si no se encontró
-    }
-
-    // ===== MÉTODO PARA BUSCAR Y MOSTRAR UNA VENTA =====
-    /**
-     * Busca una venta por su ID y muestra sus datos en consola
-     * @param codigo ID de la venta a buscar
-     */
-    public void buscarVenta(int codigo) {
-        // Obtiene la venta usando el método auxiliar
-        Venta venta = obtenerVenta(codigo);
         
-        // Si la venta existe, muestra sus datos en formato de tabla
-        if (venta != null) {
-            System.out.println("\n======================= VENTA ========================\n");
-            System.out.println("= Código: " + venta.getId() + "");
-            System.out.println("= Fecha: " + venta.getFechaVendida() + "");
-            System.out.println("= Medicamento: " + venta.getNombreDelMedicamento() + "");
-            System.out.println("= Cantidad: " + venta.getCantidadDeProductos() + "");
-            System.out.println("= Total: S/. " + venta.getPrecioDeVenta() + "");
-            System.out.println("============================================================");
-        } else {
-            System.out.println("Venta no encontrada.");
+        if (!silencioso) {
+            System.out.println(" Error: No se encontró venta con ID " + codigo);
+        }
+        return null;
+        
+    } catch (Exception e) {
+        if (!silencioso) {
+            System.out.println(" Error inesperado: " + e.getMessage());
+        }
+        return null;
+    } finally {
+        if (!silencioso) {
+            System.out.println(" Búsqueda finalizada.");
         }
     }
+    }
+    // ===== MÉTODO PARA BUSCAR Y MOSTRAR UNA VENTA =====
+    public boolean buscarVenta(int codigo) {
+    Venta venta = obtenerVenta(codigo, false);  // ← usa la versión con parámetro
+    if (venta != null) {
+        System.out.println("\n======================= VENTA ENCONTRADA =======================");
+        System.out.println("| ID:                    | " + venta.getId());
+        System.out.println("| Fecha:                 | " + venta.getFechaVendida());
+        System.out.println("| Medicamento:           | " + venta.getNombreDelMedicamento());
+        System.out.println("| Cantidad:              | " + venta.getCantidadDeProductos());
+        System.out.println("| Precio unitario:       | S/. " + String.format("%.2f", venta.getPrecioDeVenta()));
+        System.out.println("| Subtotal:              | S/. " + String.format("%.2f", venta.getPrecioDeVenta() * venta.getCantidadDeProductos()));
+        System.out.println("================================================================");
+        return true;
+    }
+    return false;
+}
 
     // ===== MÉTODO PARA LISTAR TODAS LAS VENTAS =====
-    /**
-     * Muestra en consola la lista completa de ventas registradas
-     * Usa StringBuilder para construir el texto de manera eficiente
-     */
-    public void listarVentas() {
-        // Verifica si hay ventas registradas
-        if (contador == 0) {
-            System.out.println("No existen ventas registradas.");
-            return;
+    public boolean listarVentas() {
+    try {
+        // USANDO VERSIÓN NO SILENCIOSA (el usuario quiere ver el error)
+        if (!Validador.validarExistenElementos(contador, "ventas", false)) {
+            return false;
         }
         
-        // Construye el reporte usando StringBuilder
         StringBuilder sb = new StringBuilder();
-        sb.append("\n==============================LISTA DE VENTAS==========================\n");
-        for (int i = 0; i < contador; i++) {
-            // Agrega los datos de cada venta al StringBuilder
-            sb.append("= Codigo:         =").append(ventas[i].getId()).append("\n");
-            sb.append("= Fecha:          =").append(ventas[i].getFechaVendida()).append("\n");
-            sb.append("= Medicamento:    =").append(ventas[i].getNombreDelMedicamento()).append("\n");
-            sb.append("= Cantidad:       =").append(ventas[i].getCantidadDeProductos()).append("\n");
-            sb.append("= Total: S/.      =").append(ventas[i].getPrecioDeVenta()).append("\n");
-            sb.append("========================================================================");
-        }
-        // Muestra todo el texto construido
-        System.out.println(sb.toString());
-    }
-
-    // ===== MÉTODO PARA CALCULAR EL IGV DE LAS VENTAS =====
-    /**
-     * Calcula y muestra el subtotal, IGV (18%) y total de las ventas
-     * @return String vacío (solo muestra en consola)
-     */
-    public String calcularImpuesto() {
-        double subtotal = 0;
-        double igv = 0.0;
-        double total = 0;
+        sb.append("\n═══════════════════════════════════════════════════════════════\n");
+        sb.append("                    LISTA DE VENTAS (").append(contador).append(")\n");
+        sb.append("═══════════════════════════════════════════════════════════════\n");
+        sb.append("|  ID  |    FECHA    |     MEDICAMENTO     | CANT |  TOTAL  |\n");
+        sb.append("═══════════════════════════════════════════════════════════════\n");
         
-        // Recorre todas las ventas y suma los precios
         for (int i = 0; i < contador; i++) {
             if (ventas[i] != null) {
-                subtotal = ventas[i].getPrecioDeVenta() * ventas[i].getCantidadDeProductos();
-                igv = subtotal * 0.18;  // 18% de IGV
-                total = subtotal + igv;
-            } else {
-                return "";  // Si no hay ventas, retorna vacío
+                sb.append(String.format("| %-4d | %-10s | %-19s | %4d | S/.%6.2f |\n",
+                    ventas[i].getId(),
+                    ventas[i].getFechaVendida().toString(),
+                    ventas[i].getNombreDelMedicamento().length() > 19 ? 
+                        ventas[i].getNombreDelMedicamento().substring(0, 16) + "..." : 
+                        ventas[i].getNombreDelMedicamento(),
+                    ventas[i].getCantidadDeProductos(),
+                    ventas[i].getPrecioDeVenta() * ventas[i].getCantidadDeProductos()
+                ));
+            }
+        }
+        sb.append("═══════════════════════════════════════════════════════════════\n");
+        System.out.println(sb.toString());
+        return true;
+        
+    } catch (Exception e) {
+        System.out.println(" Error inesperado al listar ventas: " + e.getMessage());
+        return false;
+    }
+}
+
+    // ===== MÉTODO PARA CALCULAR IGV =====
+    public boolean calcularImpuesto() {
+    try {
+        if (!Validador.validarExistenElementos(contador, "ventas", false)) {
+            return false;
+        }
+        
+        double subtotal = 0;
+        for (int i = 0; i < contador; i++) {
+            if (ventas[i] != null) {
+                subtotal += ventas[i].getPrecioDeVenta() * ventas[i].getCantidadDeProductos();
             }
         }
         
-        // Muestra los resultados en consola
-        System.out.println("==============================");
-        System.out.println("El subtotal es : " + subtotal);
-        System.out.println("El IGV es : " + igv);
-        System.out.println("El monto total sería: " + total);
-        System.out.println("==============================");
-        return "";
+        double igv = subtotal * 0.18;
+        double total = subtotal + igv;
+        
+        System.out.println("\n══════════════════════════════════════════════");
+        System.out.println("         RESUMEN DE IMPUESTOS");
+        System.out.println("══════════════════════════════════════════════");
+        System.out.println("| Subtotal (sin IGV):    | S/. " + String.format("%10.2f", subtotal));
+        System.out.println("| IGV (18%):              | S/. " + String.format("%10.2f", igv));
+        System.out.println("| TOTAL (con IGV):        | S/. " + String.format("%10.2f", total));
+        System.out.println("══════════════════════════════════════════════");
+        return true;
+        
+    } catch (Exception e) {
+        System.out.println(" Error inesperado: " + e.getMessage());
+        return false;
     }
+}
 
-    // ===== MÉTODO PARA ENCONTRAR LA FECHA CON MAYOR INGRESO =====
-    /**
-     * Encuentra y muestra la fecha en la que se generó el mayor ingreso
-     * Compara todas las fechas y suma los precios de cada una
-     */
-    public void fechaMayorIngreso() {
-        // Verifica si hay ventas registradas
-        if (contador == 0) {
-            System.out.println("No existen ventas registradas.");
-            return;
+    // ===== MÉTODO PARA FECHA CON MAYOR INGRESO =====
+    public boolean fechaMayorIngreso() {
+    try {
+        if (!Validador.validarExistenElementos(contador, "ventas", false)) {
+            return false;
         }
         
-        // Inicializa con la primera venta
         LocalDate fechaMayor = ventas[0].getFechaVendida();
         double mayorIngreso = 0;
         
-        // Recorre todas las ventas para comparar fechas
         for (int i = 0; i < contador; i++) {
             double suma = 0;
-            // Suma todos los precios que tengan la misma fecha
             for (int j = 0; j < contador; j++) {
-                if (ventas[i].getFechaVendida().equals(ventas[j].getFechaVendida())) {
-                    suma += ventas[j].getPrecioDeVenta();
+                if (ventas[i] != null && ventas[j] != null &&
+                    ventas[i].getFechaVendida().equals(ventas[j].getFechaVendida())) {
+                    suma += ventas[j].getPrecioDeVenta() * ventas[j].getCantidadDeProductos();
                 }
             }
-            // Si el ingreso de esta fecha es mayor, se actualiza
             if (suma > mayorIngreso) {
                 mayorIngreso = suma;
                 fechaMayor = ventas[i].getFechaVendida();
             }
         }
         
-        // Muestra el resultado
-        System.out.println("Fecha con mayor ingreso: " + fechaMayor);
-        System.out.println("Ingreso total: S/. " + mayorIngreso);
+        System.out.println("\n══════════════════════════════════════════════");
+        System.out.println("         FECHA CON MAYOR INGRESO");
+        System.out.println("══════════════════════════════════════════════");
+        System.out.println("| Fecha:                | " + fechaMayor);
+        System.out.println("| Ingreso total:        | S/. " + String.format("%10.2f", mayorIngreso));
+        System.out.println("══════════════════════════════════════════════");
+        return true;
+        
+    } catch (Exception e) {
+        System.out.println(" Error inesperado: " + e.getMessage());
+        return false;
     }
 }
 
+    // ===== MÉTODO PARA ELIMINAR UNA VENTA =====
+    public boolean eliminarVenta(int id) {
+    try {
+        if (!Validador.validarIdVenta(id)) {
+            return false;
+        }
+        if (!Validador.validarExistenElementos(contador, "ventas", false)) {
+            return false;
+        }
+        
+        for (int i = 0; i < contador; i++) {
+            if (ventas[i] != null && ventas[i].getId() == id) {
+                for (int j = i; j < contador - 1; j++) {
+                    ventas[j] = ventas[j + 1];
+                }
+                ventas[contador - 1] = null;
+                contador--;
+                System.out.println(" Venta con ID " + id + " eliminada correctamente.");
+                return true;
+            }
+        }
+        
+        System.out.println(" Error: No se encontró venta con ID " + id);
+        return false;
+        
+    } catch (Exception e) {
+        System.out.println(" Error inesperado: " + e.getMessage());
+        return false;
+    }
+}
+
+    public int getTotalVentas() {
+        return contador;
+    }
+
+    public boolean hayVentas() {
+        return contador > 0;
+    }
+}

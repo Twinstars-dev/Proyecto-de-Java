@@ -24,15 +24,22 @@ public class GestionClientes {
      * @param c Objeto Cliente a registrar
      */
     public void agregarCliente(Cliente c) {
-        // Verifica si hay espacio disponible
-        if (contador < clientes.length) {
-            clientes[contador] = c;  // Guarda el cliente en la posición actual
-            contador++;              // Incrementa el contador
-        } else {
-            System.out.println("Se alcanzó el límite de clientes");
-        }
+    agregarCliente(c, false);
     }
 
+    public void agregarCliente(Cliente c, boolean silencioso) {
+        if (contador < clientes.length) {
+            clientes[contador] = c;
+            contador++;
+            if (!silencioso) {
+                System.out.println("Cliente registrado correctamente.");
+            }
+        } else {
+            if (!silencioso) {
+                System.out.println("Se alcanzó el límite de clientes");
+            }
+        }
+    }
     // ===== MÉTODO PARA BUSCAR UN CLIENTE POR ID (DEVUELVE NOMBRE) =====
     /**
      * Busca un cliente por su ID y devuelve su nombre
