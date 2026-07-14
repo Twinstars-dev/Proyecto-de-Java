@@ -150,7 +150,7 @@ public class GestionClientes {
         
         // Construye el listado usando StringBuilder
         StringBuilder sb = new StringBuilder();
-        sb.append("\n================================== LISTA DE CLIENTES ==================================\n");
+        sb.append("\n=================================  LISTA DE CLIENTES =================================\n");
         
         // Recorre todos los clientes y agrega sus datos
         for (int i = 0; i < contador; i++) {
@@ -159,7 +159,7 @@ public class GestionClientes {
             sb.append("= Tiene receta medica? : ").append(clientes[i].isRecetamedica()).append("\n");
             sb.append("= Telefono: ").append(clientes[i].getTelefono()).append("\n");
             sb.append("= Email: ").append(clientes[i].getEmail()).append("\n");
-            sb.append("=========================================================================================\n");
+            sb.append("===================================================================================\n");
         }
         
         // Muestra todo el texto construido

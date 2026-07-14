@@ -338,7 +338,7 @@ public class Principal {
         int opcion;
         
         do {
-            mostrarSubtitulo(" GESTIÓN DE PROVEEDORES");
+            mostrarSubtitulo(" GESTION DE PROVEEDORES");
             System.out.println("  1. Registrar proveedor");
             System.out.println("  2. Buscar proveedor");
             System.out.println("  3. Modificar proveedor");
