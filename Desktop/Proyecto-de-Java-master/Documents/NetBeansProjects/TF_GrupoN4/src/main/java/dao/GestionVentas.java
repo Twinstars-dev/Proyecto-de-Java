@@ -133,7 +133,7 @@ public class GestionVentas {
         System.out.println("| Cantidad:              | " + venta.getCantidadDeProductos());
         System.out.println("| Precio unitario:       | S/. " + String.format("%.2f", venta.getPrecioDeVenta()));
         System.out.println("| Subtotal:              | S/. " + String.format("%.2f", venta.getPrecioDeVenta() * venta.getCantidadDeProductos()));
-        System.out.println("================================================================");
+        System.out.println("==================================================================");
         return true;
     }
     return false;
@@ -148,11 +148,11 @@ public class GestionVentas {
         }
         
         StringBuilder sb = new StringBuilder();
-        sb.append("\n═══════════════════════════════════════════════════════════════\n");
+        sb.append("\n=====================================================\n");
         sb.append("                    LISTA DE VENTAS (").append(contador).append(")\n");
-        sb.append("═══════════════════════════════════════════════════════════════\n");
+        sb.append("=====================================================\n");
         sb.append("|  ID  |    FECHA    |     MEDICAMENTO     | CANT |  TOTAL  |\n");
-        sb.append("═══════════════════════════════════════════════════════════════\n");
+        sb.append("=====================================================\n");
         
         for (int i = 0; i < contador; i++) {
             if (ventas[i] != null) {
@@ -167,7 +167,7 @@ public class GestionVentas {
                 ));
             }
         }
-        sb.append("═══════════════════════════════════════════════════════════════\n");
+        sb.append("========================================================\n");
         System.out.println(sb.toString());
         return true;
         
@@ -194,13 +194,13 @@ public class GestionVentas {
         double igv = subtotal * 0.18;
         double total = subtotal + igv;
         
-        System.out.println("\n══════════════════════════════════════════════");
+        System.out.println("\n=======================================");
         System.out.println("         RESUMEN DE IMPUESTOS");
-        System.out.println("══════════════════════════════════════════════");
+        System.out.println("========================================");
         System.out.println("| Subtotal (sin IGV):    | S/. " + String.format("%10.2f", subtotal));
         System.out.println("| IGV (18%):              | S/. " + String.format("%10.2f", igv));
         System.out.println("| TOTAL (con IGV):        | S/. " + String.format("%10.2f", total));
-        System.out.println("══════════════════════════════════════════════");
+        System.out.println("========================================");
         return true;
         
     } catch (Exception e) {
@@ -233,12 +233,12 @@ public class GestionVentas {
             }
         }
         
-        System.out.println("\n══════════════════════════════════════════════");
+        System.out.println("\n=======================================");
         System.out.println("         FECHA CON MAYOR INGRESO");
-        System.out.println("══════════════════════════════════════════════");
+        System.out.println("========================================");
         System.out.println("| Fecha:                | " + fechaMayor);
         System.out.println("| Ingreso total:        | S/. " + String.format("%10.2f", mayorIngreso));
-        System.out.println("══════════════════════════════════════════════");
+        System.out.println("========================================");
         return true;
         
     } catch (Exception e) {

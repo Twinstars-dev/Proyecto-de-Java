@@ -121,7 +121,7 @@ public class GestionInventario {
 
         // Construye el listado usando StringBuilder
         StringBuilder sb = new StringBuilder();
-        sb.append("\n================================== LISTA DE MEDICAMENTOS ==================================\n");
+        sb.append("\n======================================== LISTA DE MEDICAMENTOS ========================================\n");
         
         // Recorre todos los medicamentos y agrega sus datos
         for (int i = 0; i < contador; i++) {
@@ -133,7 +133,7 @@ public class GestionInventario {
             sb.append("Vencimiento: ").append(medicamentos[i].getFechaDeVencimiento()).append("\n");
             sb.append("Categoria: ").append(medicamentos[i].getCategoria()).append("\n");
             sb.append("Receta: ").append(medicamentos[i].isRequiereReceta()).append("\n");
-            sb.append("==================================\n");
+            sb.append("===================================\n");
         }
         
         // Muestra todo el texto construido
