@@ -73,8 +73,8 @@ public class Principal {
                 LocalDate.of(2026, 7, 18), "Analgesico", true), true);
         
         // === CLIENTES (true = modo silencioso) ===
-        clientes.agregarCliente(new Cliente(1, "Juan Pérez", false, 987654321, "juan@gmail.com"), true);
-        clientes.agregarCliente(new Cliente(2, "María López", true, 912345678, "maria@gmail.com"), true);
+        clientes.agregarCliente(new Cliente(1, "Juan Perez", false, 987654321, "juan@gmail.com"), true);
+        clientes.agregarCliente(new Cliente(2, "Maria Lopez", true, 912345678, "maria@gmail.com"), true);
         clientes.agregarCliente(new Cliente(3, "Carlos Torres", false, 998877665, "carlos@gmail.com"), true);
         
         // === PROVEEDORES (true = modo silencioso) ===

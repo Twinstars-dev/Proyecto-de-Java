@@ -142,28 +142,31 @@ public class GestionClientes {
      * Usa StringBuilder para construir el texto de manera eficiente
      */
     public void listarClientes() {
-        // Verifica si hay clientes registrados
-        if (contador == 0) {
-            System.out.println("No existen clientes.");
-            return;
-        }
+    // Verifica si hay clientes registrados
+    if (contador == 0) {
+        System.out.println("No existen clientes.");
+        return;
+    }
+    
+    // Construye el listado usando StringBuilder
+    StringBuilder sb = new StringBuilder();
+    sb.append("\n=================================  LISTA DE CLIENTES =================================\n");
+    
+    // Recorre todos los clientes y agrega sus datos
+    for (int i = 0; i < contador; i++) {
+        sb.append("= Id: ").append(clientes[i].getId()).append("\n");
+        sb.append("= Nombre: ").append(clientes[i].getNombre()).append("\n");
         
-        // Construye el listado usando StringBuilder
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n=================================  LISTA DE CLIENTES =================================\n");
+        // ✅ Convertir boolean a "Sí" o "No"
+        sb.append("= Tiene receta médica? : ").append(clientes[i].isRecetamedica() ? "Sí" : "No").append("\n");
         
-        // Recorre todos los clientes y agrega sus datos
-        for (int i = 0; i < contador; i++) {
-            sb.append("= Id: ").append(clientes[i].getId()).append("\n");
-            sb.append("= Nombre: ").append(clientes[i].getNombre()).append("\n");
-            sb.append("= Tiene receta medica? : ").append(clientes[i].isRecetamedica()).append("\n");
-            sb.append("= Telefono: ").append(clientes[i].getTelefono()).append("\n");
-            sb.append("= Email: ").append(clientes[i].getEmail()).append("\n");
-            sb.append("===================================================================================\n");
-        }
-        
-        // Muestra todo el texto construido
-        System.out.println(sb.toString());
+        sb.append("= Teléfono: ").append(clientes[i].getTelefono()).append("\n");
+        sb.append("= Email: ").append(clientes[i].getEmail()).append("\n");
+        sb.append("===================================================================================\n");
+    }
+    
+    // Muestra todo el texto construido
+    System.out.println(sb.toString());
     }
 
     // ===== MÉTODO PARA ACTUALIZAR UN CLIENTE =====
