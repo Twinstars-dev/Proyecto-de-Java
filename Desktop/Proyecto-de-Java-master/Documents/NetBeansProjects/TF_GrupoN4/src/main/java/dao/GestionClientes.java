@@ -25,20 +25,57 @@ public class GestionClientes {
      */
     public void agregarCliente(Cliente c) {
     agregarCliente(c, false);
-    }
+}
 
     public void agregarCliente(Cliente c, boolean silencioso) {
-        if (contador < clientes.length) {
-            clientes[contador] = c;
-            contador++;
-            if (!silencioso) {
-                System.out.println("Cliente registrado correctamente.");
-            }
-        } else {
-            if (!silencioso) {
-                System.out.println("Se alcanzó el límite de clientes");
-            }
+    // Validación: Espacio disponible
+    if (contador >= clientes.length) {
+        if (!silencioso) {
+            System.out.println("   Error: Se alcanzo el limite de clientes.");
         }
+        return;
+    }
+    
+    if (c == null) {
+        if (!silencioso) {
+            System.out.println("   Error: No se puede registrar un cliente nulo.");
+        }
+        return;
+    }
+    
+    //  VALIDACIÓN CON ITERACIÓN AUTOMÁTICA PARA ID REPETIDO
+    int id = c.getId();
+    int intentos = 0;
+    
+    // Verificar si el ID ya existe
+    while (buscarClientePorId(id) != null) {
+        intentos++;
+        if (!silencioso) {
+            System.out.println("   Error: Ya existe un cliente con el ID " + id);
+        }
+        
+        // Generar nuevo ID automático
+        id = c.getId() + intentos;
+        
+        if (!silencioso) {
+            System.out.println("   Asignando nuevo ID sugerido: " + id);
+        }
+    }
+    
+    // Si el ID cambió, actualizar el objeto
+    if (id != c.getId()) {
+        c.setId(id);
+        if (!silencioso) {
+            System.out.println("   ID asignado: " + id);
+        }
+    }
+    
+    // Registrar el cliente
+    clientes[contador] = c;
+    contador++;
+    if (!silencioso) {
+        System.out.println("Cliente registrado correctamente.");
+    }
     }
     // ===== MÉTODO PARA BUSCAR UN CLIENTE POR ID (DEVUELVE NOMBRE) =====
     /**
@@ -119,7 +156,7 @@ public class GestionClientes {
         for (int i = 0; i < contador; i++) {
             sb.append("= Id: ").append(clientes[i].getId()).append("\n");
             sb.append("= Nombre: ").append(clientes[i].getNombre()).append("\n");
-            sb.append("= Tiene receta médica? : ").append(clientes[i].isRecetamedica()).append("\n");
+            sb.append("= Tiene receta medica? : ").append(clientes[i].isRecetamedica()).append("\n");
             sb.append("= Telefono: ").append(clientes[i].getTelefono()).append("\n");
             sb.append("= Email: ").append(clientes[i].getEmail()).append("\n");
             sb.append("=========================================================================================\n");

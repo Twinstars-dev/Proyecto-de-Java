@@ -22,7 +22,7 @@ public class GestionVentas {
     // ===== MÉTODO PARA REGISTRAR UNA VENTA =====
     public boolean registrarVenta(Venta venta) {
     return registrarVenta(venta, false);
-}
+    }
 
     public boolean registrarVenta(Venta venta, boolean silencioso) {
     try {
@@ -33,22 +33,43 @@ public class GestionVentas {
         }
         
         if (venta == null) {
-            if (!silencioso) System.out.println(" Error: No se puede registrar una venta nula.");
+            if (!silencioso) System.out.println("   Error: No se puede registrar una venta nula.");
             return false;
         }
         
-        if (!Validador.validarIdVenta(venta.getId())) return false;
         if (!Validador.validarNombreMedicamento(venta.getNombreDelMedicamento())) return false;
         if (!Validador.validarCantidad(venta.getCantidadDeProductos())) return false;
         if (!Validador.validarPrecio(venta.getPrecioDeVenta())) return false;
         if (!Validador.validarFechaVenta(venta.getFechaVendida())) return false;
         
-        // Validación extra: ID duplicado - USANDO VERSIÓN SILENCIOSA
-        if (obtenerVenta(venta.getId(), true) != null) {  // ← true = silencioso
-            if (!silencioso) System.out.println(" Error: Ya existe una venta con el ID " + venta.getId());
-            return false;
+        //  VALIDACIÓN CON ITERACIÓN AUTOMÁTICA PARA ID REPETIDO
+        int id = venta.getId();
+        int intentos = 0;
+        
+        // Verificar si el ID ya existe
+        while (obtenerVenta(id, true) != null) {
+            intentos++;
+            if (!silencioso) {
+                System.out.println("   Error: Ya existe una venta con el ID " + id);
+            }
+            
+            // Generar nuevo ID automático
+            id = venta.getId() + intentos;
+            
+            if (!silencioso) {
+                System.out.println("   Asignando nuevo ID sugerido: " + id);
+            }
         }
         
+        // Si el ID cambió, actualizar el objeto
+        if (id != venta.getId()) {
+            venta.setId(id);
+            if (!silencioso) {
+                System.out.println("   ID asignado: " + id);
+            }
+        }
+        
+        // Registrar la venta
         ventas[contador] = venta;
         contador++;
         if (!silencioso) {
@@ -58,12 +79,12 @@ public class GestionVentas {
         
     } catch (NullPointerException e) {
         if (!silencioso) {
-            System.out.println(" Error crítico: Datos de venta incompletos.");
+            System.out.println("   Error critico: Datos de venta incompletos.");
         }
         return false;
     } catch (Exception e) {
         if (!silencioso) {
-            System.out.println(" Error inesperado: " + e.getMessage());
+            System.out.println("   Error inesperado: " + e.getMessage());
         }
         return false;
     }
@@ -86,7 +107,7 @@ public class GestionVentas {
         }
         
         if (!silencioso) {
-            System.out.println(" Error: No se encontró venta con ID " + codigo);
+            System.out.println(" Error: No se encontro venta con ID " + codigo);
         }
         return null;
         
@@ -97,7 +118,7 @@ public class GestionVentas {
         return null;
     } finally {
         if (!silencioso) {
-            System.out.println(" Búsqueda finalizada.");
+            System.out.println(" Busqueda finalizada.");
         }
     }
     }

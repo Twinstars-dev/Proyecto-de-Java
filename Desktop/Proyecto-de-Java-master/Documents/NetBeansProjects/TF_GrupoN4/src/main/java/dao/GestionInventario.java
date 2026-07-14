@@ -27,21 +27,67 @@ public class GestionInventario {
      * @param m Objeto Medicamento a registrar
      */
     public void agregarMedicamento(Medicamento m) {
-        agregarMedicamento(m, false);
-    }
+    agregarMedicamento(m, false);
+}
 
     public void agregarMedicamento(Medicamento m, boolean silencioso) {
-        if (contador < medicamentos.length) {
-            medicamentos[contador] = m;
-            contador++;
-            if (!silencioso) {
-                System.out.println("Medicamento registrado correctamente.");
-            }
-        } else {
-            if (!silencioso) {
-                System.out.println("Inventario de medicamentos lleno.");
-            }
+    // Validación: Espacio disponible
+    if (contador >= medicamentos.length) {
+        if (!silencioso) {
+            System.out.println("   Error: Inventario de medicamentos lleno.");
         }
+        return;
+    }
+    
+    if (m == null) {
+        if (!silencioso) {
+            System.out.println("   Error: No se puede registrar un medicamento nulo.");
+        }
+        return;
+    }
+    
+    //  VALIDACIÓN CON ITERACIÓN AUTOMÁTICA PARA CÓDIGO REPETIDO
+    int codigo = m.getCodigo();
+    int intentos = 0;
+    
+    // Verificar si el código ya existe
+    while (!buscarMedicamentoPorCodigo(codigo).equals("Medicamento no encontrado")) {
+        intentos++;
+        if (!silencioso) {
+            System.out.println("   Error: Ya existe un medicamento con el codigo " + codigo);
+        }
+        
+        // Generar nuevo código automático
+        codigo = m.getCodigo() + intentos;
+        
+        // Validar que el nuevo código tenga 6 dígitos
+        if (String.valueOf(codigo).length() != 6) {
+            if (!silencioso) {
+                System.out.println("   Error: No se pudo generar un codigo de 6 digitos.");
+                System.out.println("   Intente con otro codigo manualmente.");
+            }
+            return;
+        }
+        
+        if (!silencioso) {
+            System.out.println("   Asignando nuevo codigo sugerido: " + codigo);
+        }
+    }
+    
+    // Si el código cambió, actualizar el objeto
+    if (codigo != m.getCodigo()) {
+        m.setCodigo(codigo);
+        if (!silencioso) {
+            System.out.println("   Codigo asignado: " + codigo);
+        }
+    }
+    
+    // Registrar el medicamento
+    medicamentos[contador] = m;
+    contador++;
+    if (!silencioso) {
+        System.out.println("Medicamento registrado correctamente.");
+    }
     }
 
     // ===== MÉTODO PARA BUSCAR UN MEDICAMENTO POR CÓDIGO =====
@@ -79,13 +125,13 @@ public class GestionInventario {
         
         // Recorre todos los medicamentos y agrega sus datos
         for (int i = 0; i < contador; i++) {
-            sb.append("Código: ").append(medicamentos[i].getCodigo()).append("\n");
+            sb.append("Codigo: ").append(medicamentos[i].getCodigo()).append("\n");
             sb.append("Nombre: ").append(medicamentos[i].getNombre()).append("\n");
             sb.append("Laboratorio: ").append(medicamentos[i].getLaboratorio()).append("\n");
             sb.append("Stock: ").append(medicamentos[i].getStock()).append("\n");
             sb.append("Precio: S/. ").append(medicamentos[i].getPrecio()).append("\n");
             sb.append("Vencimiento: ").append(medicamentos[i].getFechaDeVencimiento()).append("\n");
-            sb.append("Categoría: ").append(medicamentos[i].getCategoria()).append("\n");
+            sb.append("Categoria: ").append(medicamentos[i].getCategoria()).append("\n");
             sb.append("Receta: ").append(medicamentos[i].isRequiereReceta()).append("\n");
             sb.append("==================================\n");
         }
@@ -151,7 +197,7 @@ public class GestionInventario {
         
         // Si no se encontró, muestra mensaje de error
         if (!encontrado) {
-            System.out.println("Código no encontrado.");
+            System.out.println("Codigo no encontrado.");
         }
     }
 

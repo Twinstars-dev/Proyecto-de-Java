@@ -170,8 +170,8 @@ public class Principal {
         int stock = Validador.leerEnteroPositivo("  Stock: ");
         double precio = Validador.leerDoublePositivo("  Precio: ");
         LocalDate fechaVencimiento = Validador.leerFechaVencimiento("  Fecha de vencimiento (yyyy-MM-dd): ");
-        String categoria = Validador.leerTexto("  Categoría: ");
-        boolean requiereReceta = Validador.leerConfirmacion("  ¿Requiere receta médica? (S/N): ");
+        String categoria = Validador.leerTexto("  Categoria: ");
+        boolean requiereReceta = Validador.leerConfirmacion("  ¿Requiere receta medica? (S/N): ");
         
         Medicamento m = new Medicamento(codigo, nombre, laboratorio, stock, precio, 
                                         fechaVencimiento, categoria, requiereReceta);
@@ -180,7 +180,7 @@ public class Principal {
     
     private static void buscarMedicamento(GestionInventario inventario) {
         mostrarSubtitulo(" BUSCAR MEDICAMENTO");
-        int codigo = Validador.leerCodigoMedicamento("  Ingrese el código: ");
+        int codigo = Validador.leerCodigoMedicamento("  Ingrese el codigo: ");
         
         String resultado = inventario.buscarMedicamentoPorCodigo(codigo);
         System.out.println("   Resultado: " + resultado);
@@ -197,12 +197,12 @@ public class Principal {
     
     private static void eliminarMedicamento(GestionInventario inventario) {
         mostrarSubtitulo(" ELIMINAR MEDICAMENTO");
-        int codigo = Validador.leerCodigoMedicamento("  Código del medicamento: ");
+        int codigo = Validador.leerCodigoMedicamento("  Codigo del medicamento: ");
         
-        if (Validador.leerConfirmacion("  ¿Está seguro de eliminar este medicamento? (S/N): ")) {
+        if (Validador.leerConfirmacion("  ¿Esta seguro de eliminar este medicamento? (S/N): ")) {
             inventario.eliminarMedicamento(codigo);
         } else {
-            System.out.println("   Operación cancelada.");
+            System.out.println("   Operacion cancelada.");
         }
     }
     
@@ -225,7 +225,7 @@ public class Principal {
         int opcion;
         
         do {
-            mostrarSubtitulo(" GESTIÓN DE CLIENTES");
+            mostrarSubtitulo(" GESTION DE CLIENTES");
             System.out.println("  1. Registrar cliente");
             System.out.println("  2. Buscar cliente por ID");
             System.out.println("  3. Buscar cliente por nombre");
@@ -264,8 +264,8 @@ public class Principal {
         }
         
         String nombre = Validador.leerTexto("  Nombre: ");
-        boolean requiereReceta = Validador.leerConfirmacion("  ¿Requiere receta médica? (S/N): ");
-        int telefono = Validador.leerTelefono("  Teléfono (9 dígitos): ");
+        boolean requiereReceta = Validador.leerConfirmacion("  ¿Requiere receta medica? (S/N): ");
+        int telefono = Validador.leerTelefono("  Telefono (9 dígitos): ");
         String email = Validador.leerEmail("  Email (debe contener @ y .com/.pe): ");
         
         Cliente c = new Cliente(id, nombre, requiereReceta, telefono, email);
@@ -284,8 +284,8 @@ public class Principal {
             System.out.println("  " + LINEA_SIMPLE);
             System.out.println("    ID: " + encontrado.getId());
             System.out.println("    Nombre: " + encontrado.getNombre());
-            System.out.println("    Receta médica: " + (encontrado.isRecetamedica() ? "Sí" : "No"));
-            System.out.println("    Teléfono: " + encontrado.getTelefono());
+            System.out.println("    Receta medica: " + (encontrado.isRecetamedica() ? "Sí" : "No"));
+            System.out.println("    Telefono: " + encontrado.getTelefono());
             System.out.println("    Email: " + encontrado.getEmail());
             System.out.println("  " + LINEA_SIMPLE);
         } else {
@@ -325,10 +325,10 @@ public class Principal {
             return;
         }
         
-        if (Validador.leerConfirmacion("  ¿Está seguro de eliminar este cliente? (S/N): ")) {
+        if (Validador.leerConfirmacion("  ¿Esta seguro de eliminar este cliente? (S/N): ")) {
             clientes.eliminarCliente(id);
         } else {
-            System.out.println("   Operación cancelada.");
+            System.out.println("   Operacion cancelada.");
         }
     }
     
@@ -375,7 +375,7 @@ public class Principal {
         }
         
         String nombre = Validador.leerTexto("  Nombre: ");
-        int telefono = Validador.leerTelefono("  Teléfono (9 dígitos): ");
+        int telefono = Validador.leerTelefono("  Telefono (9 dígitos): ");
         String email = Validador.leerEmail("  Email (debe contener @ y .com/.pe): ");
         String tipoMedicamento = Validador.leerTexto("  Tipo de medicamento: ");
         
@@ -400,7 +400,7 @@ public class Principal {
         }
         
         String nombre = Validador.leerTexto("  Nuevo nombre: ");
-        int telefono = Validador.leerTelefono("  Nuevo teléfono (9 dígitos): ");
+        int telefono = Validador.leerTelefono("  Nuevo telefono (9 dígitos): ");
         String email = Validador.leerEmail("  Nuevo email (debe contener @ y .com/.pe): ");
         String tipoMedicamento = Validador.leerTexto("  Nuevo tipo de medicamento: ");
         
@@ -417,10 +417,10 @@ public class Principal {
             return;
         }
         
-        if (Validador.leerConfirmacion("  ¿Está seguro de eliminar este proveedor? (S/N): ")) {
+        if (Validador.leerConfirmacion("  ¿Esta seguro de eliminar este proveedor? (S/N): ")) {
             proveedores.eliminarProveedor(id);
         } else {
-            System.out.println("   Operación cancelada.");
+            System.out.println("   Operacion cancelada.");
         }
     }
     
@@ -430,7 +430,7 @@ public class Principal {
         int opcion;
         
         do {
-            mostrarSubtitulo(" GESTIÓN DE VENTAS");
+            mostrarSubtitulo(" GESTION DE VENTAS");
             System.out.println("  1. Registrar venta");
             System.out.println("  2. Buscar venta");
             System.out.println("  3. Listar ventas");
@@ -439,7 +439,7 @@ public class Principal {
             System.out.println("  0. Regresar");
             System.out.println(LINEA_SIMPLE);
             
-            opcion = Validador.leerOpcion("  Opción: ", 0, 5);
+            opcion = Validador.leerOpcion("  Opcion: ", 0, 5);
             
             switch (opcion) {
                 case 1 -> registrarVenta(ventas, inventario);
@@ -458,11 +458,11 @@ public class Principal {
     private static void registrarVenta(GestionVentas ventas, GestionInventario inventario) {
         mostrarSubtitulo(" REGISTRAR VENTA");
         
-        int id = Validador.leerIdVenta("  Código de venta: ");
+        int id = Validador.leerIdVenta("  Codigo de venta: ");
         
         // Verificar ID único
         if (ventas.obtenerVenta(id,true) != null) {
-            System.out.println("   Error: Ya existe una venta con el código " + id);
+            System.out.println("   Error: Ya existe una venta con el codigo " + id);
             return;
         }
         
@@ -495,7 +495,7 @@ public class Principal {
     
     private static void buscarVenta(GestionVentas ventas) {
         mostrarSubtitulo(" BUSCAR VENTA");
-        int id = Validador.leerIdVenta("  Código de venta: ");
+        int id = Validador.leerIdVenta("  Codigo de venta: ");
         ventas.buscarVenta(id);
     }
     
@@ -512,7 +512,7 @@ public class Principal {
             System.out.println("  0. Regresar");
             System.out.println(LINEA_SIMPLE);
             
-            opcion = Validador.leerOpcion("  Opción: ", 0, 3);
+            opcion = Validador.leerOpcion("  Opcion: ", 0, 3);
             
             switch (opcion) {
                 case 1 -> reporteStockBajo(inventario);
@@ -526,7 +526,7 @@ public class Principal {
     
     private static void reporteStockBajo(GestionInventario inventario) {
         mostrarSubtitulo(" STOCK BAJO");
-        int limite = Validador.leerEnteroPositivo("  Ingrese el límite de stock: ");
+        int limite = Validador.leerEnteroPositivo("  Ingrese el limite de stock: ");
         
         Medicamento[] lista = inventario.obtenerReporteStockBajo(limite);
         

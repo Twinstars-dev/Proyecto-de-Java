@@ -6,6 +6,7 @@ package dao;
 
 import model.Proveedor;
 import util.Validador;
+import java.util.Scanner;
 
 /**
  * Clase que gestiona las operaciones relacionadas con los proveedores
@@ -34,72 +35,104 @@ public class GestionProveedores {
      * @return true si se registró correctamente, false si hubo error
      */
     public boolean registrarProveedor(Proveedor p) {
-        return registrarProveedor(p, false);
-    }
+    return registrarProveedor(p, false);
+}
 
     public boolean registrarProveedor(Proveedor p, boolean silencioso) {
-    try {
-        // Validación 1: Espacio disponible
-        if (!Validador.validarEspacioProveedores(contador)) {
-            return false;
-        }
-        
-        // Validación 2: Proveedor no nulo
-        if (p == null) {
-            if (!silencioso) System.out.println(" Error: No se puede registrar un proveedor nulo.");
-            return false;
-        }
-        
-        // Validación 3: ID del proveedor
-        if (!Validador.validarIdProveedor(p.getId())) {
-            return false;
-        }
-        
-        // Validación 4: ID único (no duplicado) - USANDO VERSIÓN SILENCIOSA
-        if (obtenerProveedor(p.getId(), true) != null) {  // ← true = silencioso
-            if (!silencioso) System.out.println(" Error: Ya existe un proveedor con el ID " + p.getId());
-            return false;
-        }
-        
-        // Validación 5: Nombre del proveedor
-        if (!Validador.validarNombreProveedor(p.getNombre())) {
-            return false;
-        }
-        
-        // Validación 6: Teléfono
-        if (!Validador.validarTelefono(String.valueOf(p.getTelefono()))) {
-            return false;
-        }
-        
-        // Validación 7: Email
-        if (!Validador.validarEmail(p.getEmail())) {
-            return false;
-        }
-        
-        // Validación 8: Tipo de medicamento
-        if (!Validador.validarTipoMedicamento(p.getTipodemedicamento())) {
-            return false;
-        }
-        
-        // Si todas las validaciones pasan, se registra
-        proveedores[contador] = p;
-        contador++;
-        if (!silencioso) {
-            System.out.println("✅ Proveedor registrado correctamente. Total: " + contador);
-        }
-        return true;
-        
-    } catch (NullPointerException e) {
-        if (!silencioso) {
-            System.out.println("Error crítico: Datos del proveedor incompletos.");
-        }
-        return false;
-    } catch (Exception e) {
-        if (!silencioso) {
-            System.out.println("Error inesperado al registrar proveedor: " + e.getMessage());
-        }
+    // Validación: Espacio disponible
+    if (!Validador.validarEspacioProveedores(contador)) {
+        if (!silencioso) System.out.println("   Error: Capacidad maxima de proveedores alcanzada.");
         return false;
     }
+    
+    // Validación: Proveedor no nulo
+    if (p == null) {
+        if (!silencioso) System.out.println("   Error: No se puede registrar un proveedor nulo.");
+        return false;
+    }
+    
+    // ✅ VALIDACIÓN CON ITERACIÓN AUTOMÁTICA PARA ID REPETIDO
+    int idOriginal = p.getId();
+    int idFinal = idOriginal;
+    boolean idValido = false;
+    int intentos = 0;
+    
+    while (!idValido) {
+        // Validar que el ID sea positivo
+        if (!Validador.validarIdProveedor(idFinal)) {
+            if (!silencioso) {
+                System.out.println("   Error: El ID debe ser un numero positivo.");
+            }
+            return false;
+        }
+        
+        // Verificar si el ID ya existe
+        if (obtenerProveedor(idFinal, true) != null) {
+            intentos++;
+            if (!silencioso) {
+                System.out.println("   Error: Ya existe un proveedor con el ID " + idFinal);
+                if (intentos <= 3) {
+                    System.out.println("   Sugerencia: Use ID " + (idFinal + 1) + " o " + (idFinal + 2));
+                }
+            }
+            
+            // GENERAR AUTOMÁTICAMENTE UN NUEVO ID
+            idFinal = idOriginal + intentos;
+            
+            // Si ya son muchos intentos, preguntar al usuario
+            if (intentos > 5) {
+                if (!silencioso) {
+                    System.out.println("   ¿Desea ingresar un ID manualmente? (S/N): ");
+                    String respuesta = new Scanner(System.in).nextLine();
+                    if (respuesta.equalsIgnoreCase("S")) {
+                        idFinal = Validador.leerIdProveedor("   Ingrese nuevo ID: ");
+                        intentos = 0; // Reiniciar contador
+                    }
+                } else {
+                    return false; // En modo silencioso, falla
+                }
+            }
+        } else {
+            idValido = true;
+        }
+    }
+    
+    // Si el ID cambió, actualizar el objeto
+    if (idFinal != idOriginal) {
+        p.setId(idFinal);
+        if (!silencioso) {
+            System.out.println("   ID asignado automaticamente: " + idFinal);
+        }
+    }
+    
+    // Validar resto de campos
+    if (!Validador.validarNombreProveedor(p.getNombre())) {
+        if (!silencioso) System.out.println("   Error: El nombre del proveedor no es valido.");
+        return false;
+    }
+    
+    if (!Validador.validarTelefono(String.valueOf(p.getTelefono()))) {
+        if (!silencioso) System.out.println("   Error: El telefono del proveedor no es valido.");
+        return false;
+    }
+    
+    if (!Validador.validarEmail(p.getEmail())) {
+        if (!silencioso) System.out.println("   Error: El email del proveedor no es valido.");
+        return false;
+    }
+    
+    if (!Validador.validarTipoMedicamento(p.getTipodemedicamento())) {
+        if (!silencioso) System.out.println("   Error: El tipo de medicamento no es valido.");
+        return false;
+    }
+    
+    // Registrar el proveedor
+    proveedores[contador] = p;
+    contador++;
+    if (!silencioso) {
+        System.out.println(" Proveedor registrado correctamente. Total: " + contador);
+    }
+    return true;
     }
 
     // ===== MÉTODO PARA OBTENER UN PROVEEDOR POR SU ID =====
@@ -128,7 +161,7 @@ public class GestionProveedores {
         }
         
         if (!silencioso) {
-            System.out.println("Error: No se encontró proveedor con ID " + codigo);
+            System.out.println("Error: No se encontro proveedor con ID " + codigo);
         }
         return null;
         
@@ -144,7 +177,7 @@ public class GestionProveedores {
         return null;
     } finally {
         if (!silencioso) {
-            System.out.println("Búsqueda finalizada.");
+            System.out.println("Busqueda finalizada.");
         }
     }
 }
@@ -165,7 +198,7 @@ public class GestionProveedores {
             System.out.println("══════════════════════════════════════════════");
             System.out.println("| ID:                    | " + proveedor.getId());
             System.out.println("| Nombre:                | " + proveedor.getNombre());
-            System.out.println("| Teléfono:              | " + proveedor.getTelefono());
+            System.out.println("| Telefono:              | " + proveedor.getTelefono());
             System.out.println("| Correo:                | " + proveedor.getEmail());
             System.out.println("| Tipo de medicamento:   | " + proveedor.getTipodemedicamento());
             System.out.println("══════════════════════════════════════════════");
@@ -194,7 +227,7 @@ public class GestionProveedores {
         sb.append("\n═══════════════════════════════════════════════════════════════\n");
         sb.append("               LISTA DE PROVEEDORES (").append(contador).append(")\n");
         sb.append("═══════════════════════════════════════════════════════════════\n");
-        sb.append("|  ID  |     NOMBRE     |  TELÉFONO  |        EMAIL        |\n");
+        sb.append("|  ID  |     NOMBRE     |  TELEFONO  |        EMAIL        |\n");
         sb.append("═══════════════════════════════════════════════════════════════\n");
 
         for (int i = 0; i < contador; i++) {
@@ -223,7 +256,7 @@ public class GestionProveedores {
         System.out.println(" Error inesperado al listar proveedores: " + e.getMessage());
         return false;
     } finally {
-        System.out.println(" Operación de listado finalizada.");
+        System.out.println(" Operacion de listado finalizada.");
     }
 }
 
@@ -268,7 +301,7 @@ public class GestionProveedores {
                 }
             }
 
-            System.out.println("Error: No se encontró proveedor con ID " + idBuscar);
+            System.out.println("Error: No se encontro proveedor con ID " + idBuscar);
             return false;
             
         } catch (NullPointerException e) {
@@ -278,7 +311,7 @@ public class GestionProveedores {
             System.out.println("Error inesperado al actualizar proveedor: " + e.getMessage());
             return false;
         } finally {
-            System.out.println(" Operación de actualización finalizada.");
+            System.out.println(" Operacion de actualización finalizada.");
         }
     }
 
@@ -313,7 +346,7 @@ public class GestionProveedores {
                 }
             }
 
-            System.out.println(" Error: No se encontró proveedor con ID " + idBuscar);
+            System.out.println(" Error: No se encontro proveedor con ID " + idBuscar);
             return false;
             
         } catch (NullPointerException e) {
@@ -323,7 +356,7 @@ public class GestionProveedores {
             System.out.println(" Error inesperado al eliminar proveedor: " + e.getMessage());
             return false;
         } finally {
-            System.out.println("Operación de eliminación finalizada.");
+            System.out.println("Operacion de eliminación finalizada.");
         }
     }
 

@@ -32,7 +32,7 @@ public class Validador {
     
     public static boolean validarId(int id, String entidad) {
         if (id <= 0) {
-            System.out.println(" Error: El ID de " + entidad + " debe ser un número positivo.");
+            System.out.println(" Error: El ID de " + entidad + " debe ser un numero positivo.");
             return false;
         }
         return true;
@@ -58,11 +58,11 @@ public class Validador {
     
     public static boolean validarCodigo(String codigo, String entidad) {
         if (codigo == null || codigo.trim().isEmpty()) {
-            System.out.println(" Error: El código de " + entidad + " no puede estar vacío.");
+            System.out.println(" Error: El codigo de " + entidad + " no puede estar vacio.");
             return false;
         }
         if (codigo.length() > 20) {
-            System.out.println(" Error: El código no puede exceder los 20 caracteres.");
+            System.out.println(" Error: El codigo no puede exceder los 20 caracteres.");
             return false;
         }
         return true;
@@ -76,7 +76,7 @@ public class Validador {
     
     public static boolean validarNombre(String nombre, String entidad) {
         if (nombre == null || nombre.trim().isEmpty()) {
-            System.out.println(" Error: El nombre de " + entidad + " no puede estar vacío.");
+            System.out.println(" Error: El nombre de " + entidad + " no puede estar vacio.");
             return false;
         }
         if (nombre.length() > LONGITUD_MAXIMA_NOMBRE) {
@@ -209,7 +209,7 @@ public class Validador {
             LocalDate.parse(fechaStr, formatter);
             return true;
         } catch (DateTimeParseException e) {
-            System.out.println(" Error: Formato de fecha inválido. Use yyyy-MM-dd (ej: 2026-12-31)");
+            System.out.println(" Error: Formato de fecha invalido. Use yyyy-MM-dd (ej: 2026-12-31)");
             return false;
         }
     }
@@ -247,19 +247,19 @@ public class Validador {
     
     public static boolean validarTelefono(String telefono) {
         if (telefono == null || telefono.trim().isEmpty()) {
-            System.out.println(" Error: El teléfono no puede estar vacío.");
+            System.out.println(" Error: El telefono no puede estar vacío.");
             return false;
         }
         // Eliminar espacios, guiones y paréntesis
         String telefonoLimpio = telefono.replaceAll("[\\s()\\-]", "");
         if (telefonoLimpio.length() < LONGITUD_MINIMA_TELEFONO || 
             telefonoLimpio.length() > LONGITUD_MAXIMA_TELEFONO) {
-            System.out.println(" Error: El teléfono debe tener entre " + 
+            System.out.println(" Error: El telefono debe tener entre " + 
                 LONGITUD_MINIMA_TELEFONO + " y " + LONGITUD_MAXIMA_TELEFONO + " dígitos.");
             return false;
         }
         if (!telefonoLimpio.matches("\\d+")) {
-            System.out.println(" Error: El teléfono solo debe contener números.");
+            System.out.println(" Error: El telefono solo debe contener numeros.");
             return false;
         }
         return true;
@@ -268,7 +268,7 @@ public class Validador {
     public static boolean validarTelefonoCliente(int telefono) {
         String telefonoStr = String.valueOf(telefono);
         if (telefonoStr.length() != TELEFONO_DIGITOS_EXACTOS) {
-            System.out.println(" Error: El teléfono debe tener exactamente " + TELEFONO_DIGITOS_EXACTOS + " dígitos.");
+            System.out.println(" Error: El telefono debe tener exactamente " + TELEFONO_DIGITOS_EXACTOS + " digitos.");
             return false;
         }
         return true;
@@ -278,12 +278,12 @@ public class Validador {
     
     public static boolean validarEmail(String email) {
         if (email == null || email.trim().isEmpty()) {
-            System.out.println(" Error: El email no puede estar vacío.");
+            System.out.println(" Error: El email no puede estar vacio.");
             return false;
         }
         // Validación básica de email
         if (!email.contains("@") || !email.contains(".")) {
-            System.out.println(" Error: El email debe tener formato válido (ejemplo@dominio.com).");
+            System.out.println(" Error: El email debe tener formato valido (ejemplo@dominio.com).");
             return false;
         }
         // Validar que no tenga espacios
@@ -303,11 +303,11 @@ public class Validador {
     
     public static boolean validarCategoria(String categoria) {
         if (categoria == null || categoria.trim().isEmpty()) {
-            System.out.println(" Error: La categoría no puede estar vacía.");
+            System.out.println(" Error: La categoria no puede estar vacia.");
             return false;
         }
         if (categoria.length() > 50) {
-            System.out.println(" Error: La categoría no puede exceder los 50 caracteres.");
+            System.out.println(" Error: La categoria no puede exceder los 50 caracteres.");
             return false;
         }
         return true;
@@ -317,7 +317,7 @@ public class Validador {
     
     public static boolean validarTipoMedicamento(String tipo) {
         if (tipo == null || tipo.trim().isEmpty()) {
-            System.out.println(" Error: El tipo de medicamento no puede estar vacío.");
+            System.out.println(" Error: El tipo de medicamento no puede estar vacio.");
             return false;
         }
         if (tipo.length() > 50) {
@@ -337,7 +337,7 @@ public class Validador {
     public static boolean validarEspacioDisponible(int contador, int capacidad, String entidad) {
         if (contador >= capacidad) {
             System.out.println(" Error: No hay espacio disponible para " + entidad + 
-                ". Capacidad máxima: " + capacidad);
+                ". Capacidad maxima: " + capacidad);
             return false;
         }
         return true;
@@ -413,7 +413,7 @@ public class Validador {
                 numero = Integer.parseInt(sc.nextLine());
                 valido = true;
             } catch (NumberFormatException e) {
-                System.out.println("   Error: Debe ingresar un número entero válido.");
+                System.out.println("   Error: Debe ingresar un numero entero valido.");
                 numero = 0;
                 valido = false;
             }
@@ -434,7 +434,7 @@ public class Validador {
         do {
             numero = leerEntero(mensaje);
             if (numero <= 0) {
-                System.out.println("   Error: Debe ingresar un número mayor a 0.");
+                System.out.println("   Error: Debe ingresar un numero mayor a 0.");
                 valido = false;
             } else {
                 valido = true;
@@ -459,7 +459,7 @@ public class Validador {
                 numero = Double.parseDouble(sc.nextLine());
                 valido = true;
             } catch (NumberFormatException e) {
-                System.out.println("   Error: Debe ingresar un número decimal válido.");
+                System.out.println("   Error: Debe ingresar un numero decimal valido.");
                 numero = 0;
                 valido = false;
             }
@@ -480,7 +480,7 @@ public class Validador {
         do {
             numero = leerDouble(mensaje);
             if (numero <= 0) {
-                System.out.println("   Error: Ingrese un número mayor a 0.");
+                System.out.println("   Error: Ingrese un numero mayor a 0.");
                 valido = false;
             } else {
                 valido = true;
@@ -503,7 +503,7 @@ public class Validador {
             System.out.print(mensaje);
             texto = sc.nextLine().trim();
             if (texto.isEmpty()) {
-                System.out.println("   Error: El texto no puede estar vacío.");
+                System.out.println("   Error: El texto no puede estar vacio.");
                 valido = false;
             } else {
                 valido = true;
@@ -526,7 +526,7 @@ public class Validador {
             telefono = leerEntero(mensaje);
             String telefonoStr = String.valueOf(telefono);
             if (telefonoStr.length() != TELEFONO_DIGITOS_EXACTOS) {
-                System.out.println("   Error: El teléfono debe tener exactamente " + TELEFONO_DIGITOS_EXACTOS + " dígitos.");
+                System.out.println("   Error: El telefono debe tener exactamente " + TELEFONO_DIGITOS_EXACTOS + " digitos.");
                 valido = false;
             } else {
                 valido = true;
@@ -550,7 +550,7 @@ public class Validador {
             email = sc.nextLine().trim();
             
             if (email.isEmpty()) {
-                System.out.println("   Error: El email no puede estar vacío.");
+                System.out.println("   Error: El email no puede estar vacio.");
                 valido = false;
             } else if (!email.contains("@")) {
                 System.out.println("   Error: El email debe contener '@'.");
@@ -587,7 +587,7 @@ public class Validador {
                 fecha = LocalDate.parse(sc.nextLine());
                 valido = true;
             } catch (DateTimeParseException e) {
-                System.out.println("   Error: Formato inválido. Use yyyy-MM-dd (ej: 2026-12-31)");
+                System.out.println("   Error: Formato invalido. Use yyyy-MM-dd (ej: 2026-12-31)");
                 valido = false;
             }
         } while (!valido);
@@ -619,8 +619,8 @@ public class Validador {
             
             // Validar que sea al menos 30 días después
             if (fecha.isBefore(fechaMinima)) {
-                System.out.println("   Error: La fecha de vencimiento debe ser al menos 30 días después de hoy.");
-                System.out.println("   Fecha mínima permitida: " + fechaMinima);
+                System.out.println("   Error: La fecha de vencimiento debe ser al menos 30 dias despues de hoy.");
+                System.out.println("   Fecha minima permitida: " + fechaMinima);
                 valido = false;
                 continue;
             }
@@ -628,7 +628,7 @@ public class Validador {
             valido = true;
             
         } catch (DateTimeParseException e) {
-            System.out.println("   Error: Formato inválido. Use yyyy-MM-dd (ej: 2026-12-31)");
+            System.out.println("   Error: Formato invalido. Use yyyy-MM-dd (ej: 2026-12-31)");
             valido = false;
         }
     } while (!valido);
@@ -655,7 +655,7 @@ public class Validador {
         do {
             opcion = leerEntero(mensaje);
             if (opcion < min || opcion > max) {
-                System.out.println("   Error: La opción debe estar entre " + min + " y " + max + ".");
+                System.out.println("   Error: La opcion debe estar entre " + min + " y " + max + ".");
                 valido = false;
             } else {
                 valido = true;
@@ -683,7 +683,7 @@ public class Validador {
             } else if (respuesta.equals("n") || respuesta.equals("no")) {
                 return false;
             } else {
-                System.out.println("   Error: Ingrese 'S' para Sí o 'N' para No.");
+                System.out.println("   Error: Ingrese 'S' para Si o 'N' para No.");
                 valido = false;
             }
         } while (!valido);
@@ -705,10 +705,10 @@ public class Validador {
             ruc = sc.nextLine().trim().replaceAll("[\\s-]", "");
             
             if (ruc.isEmpty()) {
-                System.out.println("   Error: El RUC no puede estar vacío.");
+                System.out.println("   Error: El RUC no puede estar vacio.");
                 valido = false;
             } else if (!ruc.matches("\\d{11}")) {
-                System.out.println("   Error: El RUC debe tener 11 dígitos numéricos.");
+                System.out.println("   Error: El RUC debe tener 11 dígitos numericos.");
                 valido = false;
             } else {
                 valido = true;
@@ -734,7 +734,7 @@ public static int leerCodigoMedicamento(String mensaje) {
             
             // Validar que sea positivo
             if (codigo <= 0) {
-                System.out.println("   Error: El código debe ser un número positivo.");
+                System.out.println("   Error: El codigo debe ser un numero positivo.");
                 valido = false;
                 continue;
             }
@@ -742,7 +742,7 @@ public static int leerCodigoMedicamento(String mensaje) {
             // Validar que tenga exactamente 6 dígitos
             String codigoStr = String.valueOf(codigo);
             if (codigoStr.length() != 6) {
-                System.out.println("   Error: El código debe tener exactamente 6 dígitos.");
+                System.out.println("   Error: El codigo debe tener exactamente 6 digitos.");
                 System.out.println("   Ingresaste: " + codigoStr.length() + " dígito(s).");
                 valido = false;
                 continue;
@@ -751,7 +751,7 @@ public static int leerCodigoMedicamento(String mensaje) {
             valido = true;
             
         } catch (NumberFormatException e) {
-            System.out.println("   Error: Debe ingresar un número entero válido.");
+            System.out.println("   Error: Debe ingresar un numero entero válido.");
             valido = false;
         }
     } while (!valido);
@@ -772,7 +772,7 @@ public static int leerCodigoMedicamento(String mensaje) {
         do {
             id = leerEntero(mensaje);
             if (id <= 0) {
-                System.out.println("   Error: El ID de " + entidad + " debe ser un número positivo.");
+                System.out.println("   Error: El ID de " + entidad + " debe ser un numero positivo.");
                 valido = false;
             } else {
                 valido = true;
