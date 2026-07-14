@@ -235,7 +235,7 @@ public class Principal {
             System.out.println("  0. Regresar");
             System.out.println(LINEA_SIMPLE);
             
-            opcion = Validador.leerOpcion("  Opción: ", 0, 6);
+            opcion = Validador.leerOpcion("  Opcion: ", 0, 6);
             
             switch (opcion) {
                 case 1 -> registrarCliente(clientes);
@@ -347,7 +347,7 @@ public class Principal {
             System.out.println("  0. Regresar");
             System.out.println(LINEA_SIMPLE);
             
-            opcion = Validador.leerOpcion("  Opción: ", 0, 5);
+            opcion = Validador.leerOpcion("  Opcion: ", 0, 5);
             
             switch (opcion) {
                 case 1 -> registrarProveedor(proveedores);
@@ -507,7 +507,7 @@ public class Principal {
         do {
             mostrarSubtitulo(" REPORTES");
             System.out.println("  1. Medicamentos con stock bajo");
-            System.out.println("  2. Medicamentos próximos a vencer");
+            System.out.println("  2. Medicamentos proximos a vencer");
             System.out.println("  3. Reporte de ventas");
             System.out.println("  0. Regresar");
             System.out.println(LINEA_SIMPLE);
