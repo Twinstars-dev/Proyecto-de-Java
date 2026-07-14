@@ -27,8 +27,8 @@ public class GestionInventario {
      * @param m Objeto Medicamento a registrar
      */
     public void agregarMedicamento(Medicamento m) {
-    agregarMedicamento(m, false);
-}
+        agregarMedicamento(m, false);
+    }
 
     public void agregarMedicamento(Medicamento m, boolean silencioso) {
     // Validación: Espacio disponible
