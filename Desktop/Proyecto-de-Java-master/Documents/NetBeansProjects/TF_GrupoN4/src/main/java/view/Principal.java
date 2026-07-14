@@ -105,7 +105,7 @@ public class Principal {
         int opcion;
         
         do {
-            mostrarTitulo(" SISTEMA DE GESTIÓN DE FARMACIA");
+            mostrarTitulo(" SISTEMA DE GESTION DE FARMACIA");
             System.out.println("  1.  Gestion de Medicamentos");
             System.out.println("  2.  Gestion de Clientes");
             System.out.println("  3.  Gestion de Proveedores");
@@ -134,7 +134,7 @@ public class Principal {
         int opcion;
         
         do {
-            mostrarSubtitulo(" GESTIÓN DE MEDICAMENTOS");
+            mostrarSubtitulo(" GESTION DE MEDICAMENTOS");
             System.out.println("  1. Registrar medicamento");
             System.out.println("  2. Buscar medicamento");
             System.out.println("  3. Modificar medicamento");
